@@ -3,8 +3,8 @@ import { AppStore } from "../Redux/store";
 import { Navigate, Outlet } from "react-router-dom";
 import { PrivateRoutes} from "../models/routes";
 
-const RoleGuardPatient = () => {
+const RoleGuardAdmin = ({role = ""}) => {
   const authState = useSelector((store: AppStore) => store.user);
-  return authState.role == "patient" ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY} />;
+  return authState.role == role ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY} />;
 };
-export default RoleGuardPatient;
+export default RoleGuardAdmin;
