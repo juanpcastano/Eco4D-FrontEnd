@@ -5,26 +5,38 @@ export const EmptyUserState: UserInfo = {
   id: 0,
   name: "",
   country: "",
-  phone:"",
+  phone: "",
   city: "",
   email: "",
   role: "",
 };
 
+export const persistLocalStoregeUser = (userInfo: UserInfo) => {
+  localStorage.setItem("user", JSON.stringify({ ...userInfo }));
+};
+
 export const userSlice = createSlice({
   name: "user",
-  initialState: EmptyUserState,
+  initialState: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") as string)
+    : EmptyUserState,
   reducers: {
-    createUser: (state, action) =>{
-        return action.payload
+    createUser: (state, action) => {
+      persistLocalStoregeUser(action.payload)
+      return action.payload;
     },
-    updateUser: (state, action) =>{
-        return {...state, ...action.payload}
+    updateUser: (state, action) => {
+      const result = { ...state, ...action.payload }
+      persistLocalStoregeUser(result)
+      return result;
     },
-    resetUser:() => {return EmptyUserState}
-   },
+    resetUser: () => {
+      localStorage.removeItem("user")
+      return EmptyUserState;
+    },
+  },
 });
 
-export const {createUser,updateUser,resetUser} = userSlice.actions
+export const { createUser, updateUser, resetUser } = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;

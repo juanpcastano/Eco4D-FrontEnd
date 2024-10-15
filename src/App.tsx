@@ -13,7 +13,6 @@ const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
 const Layout = lazy(()=> import("./Pages/Layout/Layout"));
 const History = lazy(()=> import("./Pages/History/History"));
 const Login = lazy(()=> import("./Pages/Login/Login"));
-const TestNav = lazy(()=> import("./Components/TesNav/TestNav"));
 const Ecography = lazy(()=> import("./Pages/Ecography/Ecography"));
 const Profile = lazy(()=> import("./Pages/Profile/Profile"));
 const Settings = lazy(()=> import("./Pages/Settings/Settings"));
@@ -30,7 +29,6 @@ function App() {
       <Suspense fallback={<Loading/>}>
         <Provider store={store}>
           <BrowserRouter>
-            <TestNav />
             <Routes>
               <Route
                 path="/"
