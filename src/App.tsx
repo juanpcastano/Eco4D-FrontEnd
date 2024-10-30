@@ -7,6 +7,7 @@ import store from "./Redux/store";
 
 import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
+import Register from "./Pages/Login/Register";
 
 
 const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
@@ -35,6 +36,7 @@ function App() {
                 element={<Navigate to={PrivateRoutes.HISTORY} />}
               />
               <Route path={PublicRoutes.LOGIN} element={<Login />} />
+              <Route path={PublicRoutes.REGISTER} element={<Register />} />
               <Route path="*" element={<NotFound />} />
               <Route element={<AuthGuard />}>
                 <Route element={<Layout />}>

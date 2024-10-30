@@ -1,5 +1,6 @@
 export const PublicRoutes = {
     LOGIN: "login",
+    REGISTER:"register",
     ECOGRAPHY_TUNNEL: "share"
 };
 
