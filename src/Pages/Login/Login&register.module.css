@@ -149,6 +149,7 @@
   }
   @media (max-width: 500px) {
     .loginFormContainer {
+      box-sizing: border-box;
       margin: 1rem;
       padding: 1.5rem;
     }
