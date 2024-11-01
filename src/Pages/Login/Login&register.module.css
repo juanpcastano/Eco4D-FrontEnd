@@ -11,8 +11,8 @@
   /* Blobs decorativos */
   .blob {
     position: absolute;
-    width: 340px;
-    height: 340px;
+    width: 430px;
+    height: 430px;
     border-radius: 100px;
     transition: all 1s ease;
   }
@@ -119,6 +119,7 @@
   }
   .formRow {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     width: 100%;
   }
@@ -134,6 +135,19 @@
   
   
   /* Media queries para responsividad */
+
+  @media (max-width: 1400px) {
+    .loginFormContainer {
+      box-sizing: border-box;
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  
+    .blob {
+      width: 350px;
+      height: 350px;
+    }
+  }
   @media (max-width: 840px) {
     .blob {
       width: 300px;
