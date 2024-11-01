@@ -10,6 +10,7 @@ import styles from "./Login&register.module.css";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [Error, setError] = useState("")
   const [formData, setFormData] = useState({
     identificacion: 0,
     tipoIdentificacion: "",
@@ -18,7 +19,7 @@ const Register = () => {
     contrasena: "",
     pais: "",
     ciudad: "",
-    fechaNacimiento: "",
+    fecha_nacimiento: "",
   });
 
   const idTypes = [
@@ -29,12 +30,22 @@ const Register = () => {
   const register = async (registerInfo: registerInfo) => {
     try {
       const result = await ApiCallRegister(registerInfo);
+      if(result.status >= 300){
+        const Message = result.message
+        setError(Message)
+        if(result.status == 401){
+          setError("El Usuario Ya Existe")
+        }
+        return
+      }
+     
       dispatch(createAuth(result.auth));
       dispatch(createUser(result.user.role));
       navigate("/history");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     register(formData);
@@ -106,11 +117,30 @@ const Register = () => {
               <label htmlFor="identificacion">Número de documento</label>
               <input
                 type="number"
+                min="0"
+                step="1"
+                onKeyDown={(e) => {
+                  // Prevenir la e/E
+                  if (e.key === 'e' || e.key === 'E') {
+                    e.preventDefault();
+                  }
+                  // Prevenir el punto decimal y el signo negativo
+                  if (e.key === '.' || e.key === '-') {
+                    e.preventDefault();
+                  }
+                }}
+                onPaste={(e) => {
+                  const text = e.clipboardData.getData('text');
+                  // Prevenir pegar texto que contenga e, E, . o -
+                  if (text.includes('e') || text.includes('E') || text.includes('.') || text.includes('-')) {
+                    e.preventDefault();
+                  }
+                }}
                 id="identificacion"
                 name="identificacion"
                 value={formData.identificacion}
                 onChange={handleChange}
-                className={styles.input}
+                className={`${styles.input} ${styles.noarrows}`}
                 required
               />
             </div>
@@ -129,11 +159,11 @@ const Register = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="contrasena">Contraseña</label>
             <input
               type="password"
-              id="password"
-              name="password"
+              id="contrasena"
+              name="contrasena"
               value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}
@@ -169,12 +199,12 @@ const Register = () => {
             </div>
           </div>  
           <div className={styles.formGroup}>
-            <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
+            <label htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
             <input
               type="date"
-              id="fechaNacimiento"
-              name="fechaNacimiento"
-              value={formData.fechaNacimiento}
+              id="fecha_nacimiento"
+              name="fecha_nacimiento"
+              value={formData.fecha_nacimiento}
               onChange={handleChange}
               className={styles.input}
               required
@@ -189,6 +219,7 @@ const Register = () => {
             <Link to="/login">
               Ya tengo cuenta
             </Link>
+            {Error && <p className={styles.error}>{Error}</p>}
           </div>
         </form>
       </div>

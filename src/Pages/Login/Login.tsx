@@ -14,13 +14,27 @@ const Login = () => {
     correo_electronico: "",
     contrasena: "",
   });
+  const [Error, setError] = useState("")
   const login = async (credentials: credentials) => {
     try {
       const result = await ApiCallLogin(credentials);
+
+      if(result.status >= 300){
+        const Message = result.message
+        setError(Message)
+        if(result.status == 401){
+          setError("Credenciales Incorrectas")
+        }
+        return
+      }
+      
+      
       dispatch(createAuth({token : result.token}));
       dispatch(createUser(result.user));
       navigate("/history");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -91,6 +105,7 @@ const Login = () => {
             <Link to="/register" className={styles.link}>
               Aún no tengo cuenta
             </Link>
+            {Error && <p className={styles.error}>{Error}</p>}
           </div>
         </form>
       </div>

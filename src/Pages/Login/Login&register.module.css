@@ -7,7 +7,20 @@
     background-color: #F9F9F9;
     overflow: hidden;
   }
+  .noarrows {
+    /* Para Chrome, Safari, Edge, Opera */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    margin: 0;
+  }
   
+  /* Para Firefox */
+  .noarrows::-webkit-outer-spin-button,
+  .noarrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   /* Blobs decorativos */
   .blob {
     position: absolute;
@@ -126,6 +139,11 @@
   
   .formRow .formGroup {
     flex: 1;
+  }
+  
+  .error{
+    color: rgb(247, 36, 117);
+    font-weight: 500;
   }
   
   
