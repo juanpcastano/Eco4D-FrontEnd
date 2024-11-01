@@ -2,13 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { UserInfo } from "../../models/user.model";
 
 export const EmptyUserState: UserInfo = {
-  id: 0,
-  name: "",
-  country: "",
-  phone: "",
-  city: "",
-  email: "",
-  role: "",
+  identificacion: 0,
+  tipoIdentificacion: "",
+  nombre_completo: "",
+  correo_electronico: "",
+  rol: "",
+  pais: "",
+  ciudad: "",
+  fechaNacimiento: "",
 };
 
 export const persistLocalStoregeUser = (userInfo: UserInfo) => {

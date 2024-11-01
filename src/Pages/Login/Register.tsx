@@ -11,22 +11,20 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
-    idNumber: "",
-    idType: "",
-    email: "",
-    password: "",
-    country: "",
-    city: "",
-    birthDate: "",
+    identificacion: 0,
+    tipoIdentificacion: "",
+    nombre_completo: "",
+    correo_electronico: "",
+    contrasena: "",
+    pais: "",
+    ciudad: "",
+    fechaNacimiento: "",
   });
 
   const idTypes = [
     { value: "CC", label: "C.C. - Cédula de Ciudadanía" },
     { value: "CE", label: "C.E. - Cédula de Extranjería" },
     { value: "TI", label: "T.I. - Tarjeta de Identidad" },
-    { value: "PP", label: "Pasaporte" },
-    { value: "PPT", label: "PPT - Permiso por Protección Temporal" },
   ];
   const register = async (registerInfo: registerInfo) => {
     try {
@@ -73,12 +71,12 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="email">Nombre Completo</label>
+            <label htmlFor="nombre_completo">Nombre Completo</label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="nombre_completo"
+              name="nombre_completo"
+              value={formData.nombre_completo}
               onChange={handleChange}
               className={styles.input}
               required
@@ -86,11 +84,11 @@ const Register = () => {
           </div>
           <div className={styles.formRow}>
           <div className={styles.formGroup}>
-              <label htmlFor="idType">Tipo de documento</label>
+              <label htmlFor="tipoIdentificacion">Tipo de documento</label>
               <select
-                id="idType"
-                name="idType"
-                value={formData.idType}
+                id="tipoIdentificacion"
+                name="tipoIdentificacion"
+                value={formData.tipoIdentificacion}
                 onChange={handleChange}
                 required
               >
@@ -105,12 +103,12 @@ const Register = () => {
             
 
             <div className={styles.formGroup}>
-              <label htmlFor="idNumber">Número de documento</label>
+              <label htmlFor="identificacion">Número de documento</label>
               <input
-                type="text"
-                id="idNumber"
-                name="idNumber"
-                value={formData.idNumber}
+                type="number"
+                id="identificacion"
+                name="identificacion"
+                value={formData.identificacion}
                 onChange={handleChange}
                 className={styles.input}
                 required
@@ -118,12 +116,12 @@ const Register = () => {
             </div>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="correo_electronico">Email</label>
             <input
               type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              id="correo_electronico"
+              name="correo_electronico"
+              value={formData.correo_electronico}
               onChange={handleChange}
               className={styles.input}
               required
@@ -136,7 +134,7 @@ const Register = () => {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
+              value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}
               required
@@ -145,12 +143,12 @@ const Register = () => {
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="country">País</label>
+              <label htmlFor="pais">País</label>
               <input
                 type="text"
-                id="country"
-                name="country"
-                value={formData.country}
+                id="pais"
+                name="pais"
+                value={formData.pais}
                 onChange={handleChange}
                 className={styles.input}
                 required
@@ -158,12 +156,12 @@ const Register = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="city">Ciudad</label>
+              <label htmlFor="ciudad">Ciudad</label>
               <input
                 type="text"
-                id="city"
-                name="city"
-                value={formData.city}
+                id="ciudad"
+                name="ciudad"
+                value={formData.ciudad}
                 onChange={handleChange}
                 className={styles.input}
                 required
@@ -171,12 +169,12 @@ const Register = () => {
             </div>
           </div>  
           <div className={styles.formGroup}>
-            <label htmlFor="birthDate">Fecha de nacimiento</label>
+            <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
             <input
               type="date"
-              id="birthDate"
-              name="birthDate"
-              value={formData.birthDate}
+              id="fechaNacimiento"
+              name="fechaNacimiento"
+              value={formData.fechaNacimiento}
               onChange={handleChange}
               className={styles.input}
               required

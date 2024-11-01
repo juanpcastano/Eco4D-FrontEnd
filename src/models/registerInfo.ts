@@ -1,11 +1,11 @@
 export interface registerInfo{
     
-        name: string,
-        idNumber: string,
-        idType: string,
-        email: string,
-        password: string,
-        country: string,
-        city: string,
-        birthDate: string,
+    identificacion: number,
+    tipoIdentificacion: string,
+    nombre_completo: string,
+    correo_electronico: string,
+    contrasena: string,
+    pais: string,
+    ciudad: string,
+    fechaNacimiento: string,
 }

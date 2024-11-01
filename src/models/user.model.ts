@@ -1,9 +1,10 @@
 export interface UserInfo{
-    id: number;
-    name: string;
-    country: string;
-    phone: string;
-    city: string;
-    email: string;
-    role: string;
+    identificacion: number,
+    tipoIdentificacion: string,
+    nombre_completo: string,
+    correo_electronico: string,
+    rol: string,
+    pais: string,
+    ciudad: string,
+    fechaNacimiento: string,
 }

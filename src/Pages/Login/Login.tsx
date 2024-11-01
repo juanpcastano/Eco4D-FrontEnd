@@ -11,14 +11,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    correo_electronico: "",
+    contrasena: "",
   });
   const login = async (credentials: credentials) => {
     try {
       const result = await ApiCallLogin(credentials);
-      dispatch(createAuth(result.auth));
-      dispatch(createUser(result.user.role));
+      dispatch(createAuth({token : result.token}));
+      dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {}
   };
@@ -57,12 +57,12 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="correo_electronico">Email</label>
             <input
               type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              id="correo_electronico"
+              name="correo_electronico"
+              value={formData.correo_electronico}
               onChange={handleChange}
               className={styles.input}
               required
@@ -70,12 +70,12 @@ const Login = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="contrasena">Contraseña</label>
             <input
               type="password"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="contrasena"
+              name="contrasena"
+              value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}
               required
