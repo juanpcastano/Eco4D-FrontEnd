@@ -9,7 +9,7 @@ export const EmptyUserState: UserInfo = {
   rol: "",
   pais: "",
   ciudad: "",
-  fechaNacimiento: "",
+  fecha_nacimiento: "",
 };
 
 export const persistLocalStoregeUser = (userInfo: UserInfo) => {

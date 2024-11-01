@@ -6,5 +6,5 @@ export interface UserInfo{
     rol: string,
     pais: string,
     ciudad: string,
-    fechaNacimiento: string,
+    fecha_nacimiento: string,
 }

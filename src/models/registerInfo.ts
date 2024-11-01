@@ -7,5 +7,5 @@ export interface registerInfo{
     contrasena: string,
     pais: string,
     ciudad: string,
-    fechaNacimiento: string,
+    fecha_nacimiento: string,
 }
