@@ -3,12 +3,11 @@ import "./App.css";
 import { PrivateRoutes, PublicRoutes } from "./models/routes";
 import AuthGuard from "./Guards/AuthGuard";
 import { Provider } from "react-redux";
-import store, { AppStore } from "./Redux/store";
+import store from "./Redux/store";
 
 import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
-import { useSelector } from "react-redux";
 
 
 const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
