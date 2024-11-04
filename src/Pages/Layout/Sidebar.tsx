@@ -1,16 +1,37 @@
-import FolderIcon from '@mui/icons-material/Folder';
-import SupportIcon from '@mui/icons-material/Help';
-import SettingsIcon from '@mui/icons-material/Settings';
-import styles from './Sidebar.module.css';
+import styles from "./Sidebar.module.css";
+import NavItem from "./NavItem";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../Redux/store";
+import { PrivateRoutes } from "../../models/routes";
 
 const Sidebar = () => {
+  const userState = useSelector((store: AppStore) => store.user);
+
   return (
-    <div>
-      <ul>
-        <li><FolderIcon/> Mis Ecografías</li>
-        <li><SupportIcon/> Soporte</li>
-        <li><SettingsIcon/> Ajustes</li>
-      </ul>
+    <div className={styles.navItemsContainer}>
+      <NavItem
+        Icon={
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].icon
+        }
+        label={
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].label
+        }
+        to={
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].route
+        }
+      />
+      {Object.values(
+        PrivateRoutes[userState.rol as keyof typeof PrivateRoutes]
+      ).map((route) => {
+        return (
+          route.icon && <NavItem Icon={route.icon} label={route.label} to={route.route} />
+        );
+      })}
+      <NavItem
+        Icon={PrivateRoutes.SETTINGS.icon}
+        label={PrivateRoutes.SETTINGS.label}
+        to={PrivateRoutes.SETTINGS.route}
+      />
     </div>
   );
 };

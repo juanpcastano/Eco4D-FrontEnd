@@ -167,6 +167,7 @@ const Register = () => {
               value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}
+              minLength={6}
               required
             />
           </div>
@@ -216,7 +217,7 @@ const Register = () => {
             Registrarme
           </button>
           <div className={styles.smbtandforgotcontainer}>
-            <Link to="/login">
+            <Link to="/login" className={styles.link}>
               Ya tengo cuenta
             </Link>
             {Error && <p className={styles.error}>{Error}</p>}

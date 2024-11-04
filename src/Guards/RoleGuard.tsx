@@ -5,6 +5,6 @@ import { PrivateRoutes} from "../models/routes";
 
 const RoleGuardAdmin = ({role = ""}) => {
   const authState = useSelector((store: AppStore) => store.user);
-  return authState.role == role ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY} />;
+  return authState.rol == role ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY.route} />;
 };
 export default RoleGuardAdmin;

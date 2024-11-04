@@ -7,4 +7,5 @@ export interface UserInfo{
     pais: string,
     ciudad: string,
     fecha_nacimiento: string,
+    url_foto_de_perfil: string,
 }

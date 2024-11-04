@@ -150,7 +150,17 @@
   input[type="date"].input {
     padding: 0.4rem 0.8rem;
   }
+
+  .link {
+    color: #333b69;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
   
+  .link:hover {
+    color: #24ff96;
+  }
   
   /* Media queries para responsividad */
 

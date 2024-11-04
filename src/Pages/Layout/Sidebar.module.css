@@ -1,0 +1,8 @@
+.navItemsContainer{
+    box-sizing: border-box;
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: minmax(30px, 70px) ;
+    align-items: center;
+}

@@ -1,0 +1,70 @@
+.labelActive {
+  background: linear-gradient(to bottom, #51ffcb, #0bd397);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.labelInactive {
+  color: #b1b1b1;
+}
+
+.decorator {
+  min-width: 10px;
+  height: 70px;
+  border-radius: 0% 15px 15px 0%;
+  margin-right: 10px;
+  background: transparent; 
+  transform: scaleX(0);
+  transform-origin: left; 
+  transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), background 0.3s ease; 
+}
+
+.decoratorActive {
+  background: linear-gradient(to bottom, #51ffcb, #50e7ba);
+  transform: scaleX(1);
+}
+
+
+.activeIcon {
+  background: linear-gradient(to bottom, #51ffcb, #0bd397);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.inactiveIcon {
+  color: #b1b1b1;
+}
+
+.navItem {
+  box-sizing: border-box;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+.iconAndLabel{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  width: 120%;
+  height: 70px;
+  padding-right: 20px;
+}
+
+.navItem:hover .iconAndLabel {
+  transform: translateX(5px);
+}
+
+.navItem:active .iconAndLabel {
+  transform: translateX(2.5px);
+}
+
+
+a {
+  text-decoration: none;
+}
+
