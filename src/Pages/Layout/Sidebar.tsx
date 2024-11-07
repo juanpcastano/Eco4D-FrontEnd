@@ -32,36 +32,6 @@ const Sidebar = () => {
         label={PrivateRoutes.SETTINGS.label}
         to={PrivateRoutes.SETTINGS.route}
       />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
-      <NavItem
-        Icon={PrivateRoutes.SETTINGS.icon}
-        label={PrivateRoutes.SETTINGS.label}
-        to={PrivateRoutes.SETTINGS.route}
-      />
     </div>
   );
 };
