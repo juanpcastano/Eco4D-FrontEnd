@@ -32,18 +32,20 @@ const NavItem = ({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         />
-        <div className={styles.iconAndLabel}>
-          <span
-            className={`material-symbols-outlined ${
-              active ? styles.activeIcon : styles.inactiveIcon
-            }`}
-          >
-            {Icon}
-          </span>
+        <span
+          className={`material-symbols-outlined ${
+            active ? styles.activeIcon : styles.inactiveIcon
+          }`}
+        >
+          {Icon}
+        </span>
 
-          <div className={`${active ? styles.labelActive : styles.labelInactive} ${styles.label}`}>
-            {label}
-          </div>
+        <div
+          className={`${active ? styles.labelActive : styles.labelInactive} ${
+            styles.labelContainer
+          }`}
+        >
+          <span className={styles.label}>{label}</span>
         </div>
       </div>
     </Link>

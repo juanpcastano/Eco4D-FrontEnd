@@ -4,8 +4,7 @@ import { resetAuth } from "../../Redux/States/auth";
 import { resetUser } from "../../Redux/States/user";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
-import styles from "./Layout.module.css"
-
+import styles from "./Layout.module.css";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -16,13 +15,15 @@ const Layout = () => {
     } catch (error) {}
   };
   return (
-      <div className={styles.layoutContainer} >
-        <Topbar logoutFn={logout}/>
+    <>
+      <div className={styles.layoutContainer}>
+        <Topbar logoutFn={logout} />
         <Sidebar />
         <div className={styles.contentBackground}>
-          <Outlet /> 
+          <Outlet />
         </div>
       </div>
+    </>
   );
 };
 export default Layout;

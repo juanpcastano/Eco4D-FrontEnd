@@ -5,4 +5,15 @@
   grid-template-columns: 100%;
   grid-auto-rows: minmax(30px, 70px);
   align-items: center;
+  overflow: hidden;
+}
+
+@media (max-width:600px) {
+  .navItemsContainer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+  }
 }

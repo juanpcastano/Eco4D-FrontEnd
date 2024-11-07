@@ -48,3 +48,17 @@
         grid-template-rows: 100px 1fr;
     }
 }
+
+
+.bottombar {
+    display: none;
+  }
+  
+  @media (max-width: 600px) {
+    .bottombar {
+      display: block  ;
+      position: fixed;
+      bottom: 0;
+    }
+  }
+  
