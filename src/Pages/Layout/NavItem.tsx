@@ -41,7 +41,7 @@ const NavItem = ({
             {Icon}
           </span>
 
-          <div className={active ? styles.labelActive : styles.labelInactive}>
+          <div className={`${active ? styles.labelActive : styles.labelInactive} ${styles.label}`}>
             {label}
           </div>
         </div>

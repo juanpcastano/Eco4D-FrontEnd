@@ -1,13 +1,50 @@
 .layoutContainer{
-    position: absolute      ;
+    position: absolute;
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: minmax(170px, 240px) 12fr;
-    grid-template-rows: minmax(90px, 100px) 24fr;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 100px 1fr;
+    transition: grid-template-columns 0.3s ease
 }
 
 .contentBackground{
+    grid-column-start: 2;
     background: linear-gradient(to bottom, #F9F9F9,#F9F9F9,#F2FFF8);
     padding: 40px
+}
+
+@media (max-width:1000px) {
+    .layoutContainer{
+        grid-template-columns: 180px 1fr;
+        grid-template-rows: 100px 1fr;
+    }
+}
+
+@media (max-width:900px) {
+    .layoutContainer{
+        grid-template-columns: 150px 1fr;
+        grid-template-rows: 100px 1fr;
+    }
+}
+
+@media (max-width:850px) {
+    .layoutContainer{
+        grid-template-columns: 130px 1fr;
+        grid-template-rows: 100px 1fr;
+    }
+}
+
+@media (max-width:800px) {
+    .layoutContainer{
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: 100px 1fr;
+    }
+}
+
+@media (max-width:600px) {
+    .layoutContainer{
+        grid-template-columns: 0 1fr;
+        grid-template-rows: 100px 1fr;
+    }
 }

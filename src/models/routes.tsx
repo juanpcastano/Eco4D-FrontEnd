@@ -5,7 +5,7 @@ export const PublicRoutes = {
 };
 
 export const PrivateRoutes = {
-  SETTINGS: { icon: "settings", label: "Ajustes", route: "/settings" },
+  SETTINGS: { icon: "settings", label: "Configuración", route: "/settings" },
   PROFILE: { route: "/profile" },
   ECOGRAPHY: { route: "/ecography" },
   HISTORY: { icon: "folder", label: "Mis Ecografías", route: "/history" },
