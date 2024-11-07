@@ -26,6 +26,11 @@ export const PrivateRoutes = {
       label: "Solicitudes",
       route: "/requests",
     },
+    USERS: {
+      icon: "group",
+      label: "Usuarios",
+      route: "/Users"
+    },
     REQUEST: { route: "/request" },
   },
 };

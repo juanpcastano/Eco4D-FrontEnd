@@ -8,6 +8,7 @@ import store from "./Redux/store";
 import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
+import Users from "./Pages/Users/Users";
 
 
 const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
@@ -68,6 +69,10 @@ function App() {
                     <Route
                       path={PrivateRoutes.A.REQUESTS.route}
                       element={<Requests />}
+                    />
+                    <Route
+                      path={PrivateRoutes.A.USERS.route}
+                      element={<Users />}
                     />
                     <Route
                       path={PrivateRoutes.A.REQUEST.route}
