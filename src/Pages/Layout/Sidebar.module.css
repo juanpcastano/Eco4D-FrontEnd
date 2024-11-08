@@ -18,5 +18,7 @@
     gap: 10px;
     padding: 0px 10px;
     overflow-x: scroll;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 5px rgba(0, 0, 0, 0.068);
   }
 }

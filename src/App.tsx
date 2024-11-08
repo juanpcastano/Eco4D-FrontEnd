@@ -8,6 +8,7 @@ import store from "./Redux/store";
 import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
+import Users from "./Pages/Users/Users";
 
 
 const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
@@ -54,9 +55,9 @@ function App() {
                       element={<Support />}
                     />
                   </Route>
-                  <Route element={<RoleGuard role="D" />}>
+                  <Route element={<RoleGuard role="M" />}>
                     <Route
-                      path={PrivateRoutes.D.CREATE_ECOGRAPHY.route}
+                      path={PrivateRoutes.M.CREATE_ECOGRAPHY.route}
                       element={<CreateEcography />}
                     />
                   </Route>
@@ -68,6 +69,10 @@ function App() {
                     <Route
                       path={PrivateRoutes.A.REQUESTS.route}
                       element={<Requests />}
+                    />
+                    <Route
+                      path={PrivateRoutes.A.USERS.route}
+                      element={<Users />}
                     />
                     <Route
                       path={PrivateRoutes.A.REQUEST.route}
