@@ -55,9 +55,9 @@ function App() {
                       element={<Support />}
                     />
                   </Route>
-                  <Route element={<RoleGuard role="D" />}>
+                  <Route element={<RoleGuard role="M" />}>
                     <Route
-                      path={PrivateRoutes.D.CREATE_ECOGRAPHY.route}
+                      path={PrivateRoutes.M.CREATE_ECOGRAPHY.route}
                       element={<CreateEcography />}
                     />
                   </Route>

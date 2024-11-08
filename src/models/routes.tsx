@@ -11,13 +11,13 @@ export const PrivateRoutes = {
   HISTORY: { icon: "folder", label: "Mis Ecografías", route: "/history" },
   HOME: {
     P: { icon: "folder", label: "Mis Ecografías", route: "/history" },
-    D: { icon: "folder", label: "Mis Ecografías", route: "/history" },
+    M: { icon: "folder", label: "Mis Ecografías", route: "/history" },
     A: { icon: "Monitoring", label: "Analíticas", route: "/analytics" },
   },
   P: {
     SUPPORT: { icon: "help", label: "Soporte", route: "/support" },
   },
-  D: {
+  M: {
     CREATE_ECOGRAPHY: { route: "/create" },
   },
   A: {
