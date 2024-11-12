@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { PublicRoutes } from "../models/routes";
 
 const AuthGuard = () => {
-  const authState = useSelector((store: AppStore) => store.auth);
-  return authState.token ? <Outlet /> : <Navigate to={PublicRoutes.LOGIN.route} />;
+  const userState = useSelector((store: AppStore) => store.user);
+  return userState.nombre_completo ? <Outlet /> : <Navigate to={PublicRoutes.LOGIN.route} />;
 };
 export default AuthGuard;

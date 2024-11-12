@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { PrivateRoutes} from "../models/routes";
 
 const RoleGuard = ({role = ""}) => {
-  const authState = useSelector((store: AppStore) => store.user);
-  return authState.rol == role ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY.route} />;
+  const userState = useSelector((store: AppStore) => store.user);
+  return userState.rol == role ? <Outlet /> : <Navigate to={PrivateRoutes.HISTORY.route} />;
 };
 export default RoleGuard;

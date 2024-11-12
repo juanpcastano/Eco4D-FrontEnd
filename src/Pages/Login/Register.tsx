@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { ApiCallRegister } from "../../services/authService";
 import { registerInfo } from "../../models/registerInfo";
-import { createAuth } from "../../Redux/States/auth";
 import { createUser } from "../../Redux/States/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -38,12 +37,11 @@ const Register = () => {
         }
         return
       }
-     
-      dispatch(createAuth({token : result.token}));
       dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {
       console.log(error);
+      navigate("/register");
     }
   };
   const handleSubmit = (e: React.FormEvent) => {

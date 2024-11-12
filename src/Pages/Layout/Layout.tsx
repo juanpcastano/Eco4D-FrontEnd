@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { resetAuth } from "../../Redux/States/auth";
 import { resetUser } from "../../Redux/States/user";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
@@ -10,7 +9,6 @@ const Layout = () => {
   const dispatch = useDispatch();
   const logout = async () => {
     try {
-      dispatch(resetAuth());
       dispatch(resetUser());
     } catch (error) {}
   };

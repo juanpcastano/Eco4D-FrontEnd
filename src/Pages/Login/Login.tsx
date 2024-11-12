@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { ApiCallLogin } from "../../services/authService";
 import { credentials } from "../../models/credentials.model";
-import { createAuth } from "../../Redux/States/auth";
 import { createUser } from "../../Redux/States/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -27,13 +26,11 @@ const Login = () => {
         }
         return
       }
-      
-      
-      dispatch(createAuth({token : result.token}));
       dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {
       console.log(error);
+      navigate("/login");
     }
   };
 
