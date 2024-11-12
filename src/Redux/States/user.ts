@@ -5,6 +5,7 @@ export const EmptyUserState: UserInfo = {
   identificacion: 0,
   tipoIdentificacion: "",
   nombre_completo: "",
+  url_foto_de_perfil: "",
   correo_electronico: "",
   rol: "",
   pais: "",

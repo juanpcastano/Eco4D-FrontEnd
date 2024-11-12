@@ -39,8 +39,8 @@ const Register = () => {
         return
       }
      
-      dispatch(createAuth(result.auth));
-      dispatch(createUser(result.user.role));
+      dispatch(createAuth({token : result.token}));
+      dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {
       console.log(error);
