@@ -35,3 +35,17 @@ export const ApiCallRegister = async (registerInfo: registerInfo) => {
     return err
   }
 };
+export const ApiCallLogout = async () => {
+  try {
+    const result = await Eco4DApi.post("/auth/logout", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = result.data;
+    return data;
+  } catch (err) {
+    console.log(err)
+    return err
+  }
+};

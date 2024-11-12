@@ -4,13 +4,17 @@ import { resetUser } from "../../Redux/States/user";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import styles from "./Layout.module.css";
+import { ApiCallLogout } from "../../services/authService";
 
 const Layout = () => {
   const dispatch = useDispatch();
   const logout = async () => {
     try {
+      ApiCallLogout();
       dispatch(resetUser());
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <>
