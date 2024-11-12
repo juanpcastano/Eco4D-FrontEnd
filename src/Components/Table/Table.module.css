@@ -1,0 +1,43 @@
+.mainContainer {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding-bottom: 10px;
+  text-align: left;
+  border-bottom: 2px solid #E6EFF5;
+  color: #64E5B7
+}
+
+.table td {
+  padding: 10px;
+  border-bottom: 1px solid #E6EFF5;
+}
+
+.actions {
+  text-align: center;
+}
+
+.shareButton,
+.detailsButton {
+  padding: 5px 10px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background: none;
+  color: #007bff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.detailsButton {
+  margin-right: 0;
+}

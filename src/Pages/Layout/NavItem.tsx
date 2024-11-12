@@ -15,7 +15,7 @@ const NavItem = ({
   const [active, setActive] = useState(location.pathname == to);
 
   useEffect(() => {
-    setActive(location.pathname === to);
+    setActive(location.pathname.startsWith(to));
   }, [location.pathname, to]);
 
   return (

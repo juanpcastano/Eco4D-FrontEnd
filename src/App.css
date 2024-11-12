@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+h1 {
+  color: #333b69;
+}
+
 h2 {
   color: #333b69;
 }

@@ -1,0 +1,15 @@
+.titulo{
+    margin: 0;
+}
+
+.titleAndButton{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btnCrearDiagnostico{
+    box-sizing: border-box;
+    width: max-content;
+}
