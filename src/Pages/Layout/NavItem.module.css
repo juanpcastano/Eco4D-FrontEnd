@@ -55,11 +55,11 @@
   transition: all 0.25s ease;
 }
 .navItem:hover {
-  transform: scale(1.1);
+  transform: translateY(-5px);
 }
 
 .navItem:active {
-  transform: scale(0.95)
+  transform: translateY(-2.5px)
 }
 
 a {
@@ -80,5 +80,12 @@ a {
     border-radius: 15px 15px 0% 0%;
     margin-right: 0px;
     transform-origin: bottom;
+  }
+  .navItem:hover {
+    transform: scale(1.1);
+  }
+  
+  .navItem:active {
+    transform: scale(0.95)
   }
 }
