@@ -13,3 +13,13 @@
     box-sizing: border-box;
     width: max-content;
 }
+
+.errorMessage{
+    font-weight: 600;
+    color: #333b69;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}

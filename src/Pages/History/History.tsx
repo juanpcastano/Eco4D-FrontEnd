@@ -65,7 +65,7 @@ const History = () => {
           </button>
         )}
       </div>
-      <Table
+      {diagnosticos.length > 0 ?<Table
         headers={[
           "Fecha",
           "Hora",
@@ -77,7 +77,8 @@ const History = () => {
         keys={["fecha", "hora", "id", "doctorEncargado", "edadGestacional"]}
         data={diagnosticos}
         pathLink={PrivateRoutes.ECOGRAPHY.route}
-      />
+      />:<div className={styles.errorMessage}><span>Aún no tienes ecografías registradas</span></div>}
+      
     </>
   );
 };
