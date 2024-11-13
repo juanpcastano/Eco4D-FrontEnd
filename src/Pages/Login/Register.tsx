@@ -5,6 +5,7 @@ import { createUser } from "../../Redux/States/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from "./Login&register.module.css";
+import { AxiosError } from "axios";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -30,18 +31,15 @@ const Register = () => {
     try {
       const result = await ApiCallRegister(registerInfo);
       if(result.status >= 300){
-        const Message = result.message
-        setError(Message)
-        if(result.status == 401){
-          setError("El Usuario Ya Existe")
-        }
-        return
+        throw result
       }
       dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {
-      console.log(error);
-      navigate("/register");
+      
+      let AxiosErr = error as AxiosError;
+      console.log((AxiosErr.response?.data as { message: string }).message);
+      setError((AxiosErr.response?.data as { message: string }).message)
     }
   };
   const handleSubmit = (e: React.FormEvent) => {

@@ -33,9 +33,8 @@ const Login = () => {
       
       let AxiosErr = error as AxiosError;
       console.log((AxiosErr.response?.data as { message: string }).message);
-      setError(error as string)
+      setError((AxiosErr.response?.data as { message: string }).message)
       console.log(error);
-      navigate("/login");
     }
   };
 
