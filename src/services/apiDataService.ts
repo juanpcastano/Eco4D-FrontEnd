@@ -1,4 +1,4 @@
-import Eco4DApi from "../api/Eco4DApi";
+import Eco4DApi from "../api/Eco4DApi"
 
 export const ApiCallObtenerDiagnosticos = async () => {
   try {
@@ -10,7 +10,6 @@ export const ApiCallObtenerDiagnosticos = async () => {
     const data = result.data;
     return data;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };
