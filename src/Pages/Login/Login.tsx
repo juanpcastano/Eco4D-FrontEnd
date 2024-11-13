@@ -91,6 +91,7 @@ const Login = () => {
               type="password"
               id="contrasena"
               name="contrasena"
+              minLength={6}
               value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}
