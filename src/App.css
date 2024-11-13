@@ -8,14 +8,28 @@ body {
 
 h1 {
   color: #333b69;
+  font-weight: 700;
 }
 
 h2 {
   color: #333b69;
+  font-weight: 650;
+}
+
+h3 {
+  color: #333b69;
+  font-size: medium;
+}
+
+hr {
+  border: 0;
+  height: 2px;
+  background-color: #F4F5F7; /* Color de la línea */
+  margin: 40px 0px;
 }
 
 .light-gradient-green {
-  background: linear-gradient(to bottom, #24ff96, #dbffe7);
+  background: linear-gradient(to bottom, #24ff96, #b8ffcf);
 }
 
 .dark-gradient-green {
@@ -54,6 +68,7 @@ select {
     border-radius: 15px;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
+    color: #718EBF;
   }
   select:focus {
     box-shadow: 0 0 0 2px #24ff9541;
