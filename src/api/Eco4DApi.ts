@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Eco4DApi = axios.create({
-  baseURL: "http://eco4dbackend-production.up.railway.app",
+  baseURL: "https://eco4dbackend-production.up.railway.app",
   withCredentials: true 
 });
 
