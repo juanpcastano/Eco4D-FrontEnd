@@ -5,6 +5,7 @@ import { createUser } from "../../Redux/States/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from "./Login&register.module.css";
+import { AxiosError } from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,11 @@ const Login = () => {
       dispatch(createUser(result.user));
       navigate("/history");
     } catch (error) {
+      
+      let AxiosErr = error as AxiosError;
+      console.log((AxiosErr.response?.data as { message: string }).message);
+      setError((AxiosErr.response?.data as { message: string }).message)
       console.log(error);
-      navigate("/login");
     }
   };
 
@@ -86,6 +90,7 @@ const Login = () => {
               type="password"
               id="contrasena"
               name="contrasena"
+              minLength={6}
               value={formData.contrasena}
               onChange={handleChange}
               className={styles.input}

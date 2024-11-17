@@ -2,7 +2,10 @@ import { useState, FormEvent, useEffect } from "react";
 import styles from "./CreateEcography.module.css";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../Redux/store";
-import { ApiCallObtenerPacientes, ApiCallSubirDiagnostico } from "../../services/apiDataService";
+import {
+  ApiCallObtenerPacientes,
+  ApiCallSubirDiagnostico,
+} from "../../services/apiDataService";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +16,7 @@ const CreateEcography = () => {
   const [selectedPatient, setSelectedPatient] = useState("");
   const [gestationalAge, setGestationalAge] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pacientes, setPacientes] = useState<any[]>([])
+  const [pacientes, setPacientes] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +37,7 @@ const CreateEcography = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!selectedPatient || !gestationalAge || !diagnosisDetails) {
       alert("Por favor, complete todos los campos obligatorios");
       return;
@@ -42,21 +45,21 @@ const CreateEcography = () => {
 
     try {
       setIsSubmitting(true);
-      
+
       // Aquí irá la lógica para enviar los datos al backend
       const formData = new FormData();
-      formData.append('paciente', selectedPatient);
-      formData.append('edad_gestacional', gestationalAge);
-      formData.append('diagnostico', diagnosisDetails);
-      if (photo) formData.append('foto', photo);
-      if (video) formData.append('video', video);
-      
+      formData.append("paciente", selectedPatient);
+      formData.append("edad_gestacional", gestationalAge);
+      formData.append("diagnostico", diagnosisDetails);
+      if (photo) formData.append("foto", photo);
+      if (video) formData.append("video", video);
+
       // Ejemplo de envío (ajusta según tu API):
-      let res = ApiCallSubirDiagnostico(formData)
+      let res = ApiCallSubirDiagnostico(formData);
       console.log(res);
-      
+
       // if (!response.ok) throw new Error('Error al guardar la ecografía');
-      
+
       alert("Ecografía guardada exitosamente");
       // Limpiar el formulario
       setSelectedPatient("");
@@ -64,7 +67,6 @@ const CreateEcography = () => {
       setDiagnosisDetails("");
       setPhoto(null);
       setVideo(null);
-      
     } catch (error) {
       alert("Error al guardar la ecografía: " + (error as Error).message);
     } finally {
@@ -79,7 +81,7 @@ const CreateEcography = () => {
       try {
         const data = await ApiCallObtenerPacientes();
         console.log(data);
-        
+
         setPacientes(data);
       } catch (error) {
         let AxiosErr = error as AxiosError;
@@ -96,7 +98,6 @@ const CreateEcography = () => {
     };
 
     cargarPacientes();
-
   }, []);
 
   return (
@@ -105,18 +106,18 @@ const CreateEcography = () => {
       <form onSubmit={handleSubmit} className={styles.mainContainer}>
         <div className={styles.uploadContainer}>
           <div className={styles.uploadBox}>
-            <input 
-              type="file" 
-              accept="image/*" 
+            <input
+              type="file"
+              accept="image/*"
               onChange={handlePhotoUpload}
               id="photo-upload"
             />
             {photo ? <p>{photo.name}</p> : <p>Sube una foto</p>}
           </div>
           <div className={styles.uploadBox}>
-            <input 
-              type="file" 
-              accept="video/*" 
+            <input
+              type="file"
+              accept="video/*"
               onChange={handleVideoUpload}
               id="video-upload"
             />
@@ -130,15 +131,21 @@ const CreateEcography = () => {
         <div className={styles.optionsContainer}>
           <label htmlFor="nombre_paciente">Paciente</label>
           <label htmlFor="edad_gestacional">Edad Gestacional</label>
-          <select 
-            name="nombre_paciente" 
+          <select
+            name="nombre_paciente"
             id="nombre_paciente"
             value={selectedPatient}
             onChange={(e) => setSelectedPatient(e.target.value)}
             required
           >
             <option value="">Seleccione...</option>
-            {pacientes.map((paciente)=>{return<option value={paciente.identificacion}>{paciente.nombre_completo+" - "+paciente.identificacion}</option>})}
+            {pacientes.length>0 && pacientes.map((paciente) => {
+              return (
+                <option value={paciente.identificacion}>
+                  {paciente.nombre_completo + " - " + paciente.identificacion}
+                </option>
+              );
+            })}
           </select>
           <div className={styles.weeks}>
             <input
@@ -152,7 +159,12 @@ const CreateEcography = () => {
               className={styles.noarrows}
               required
               onKeyDown={(e) => {
-                if (e.key === "e" || e.key === "E" || e.key === "." || e.key === "-") {
+                if (
+                  e.key === "e" ||
+                  e.key === "E" ||
+                  e.key === "." ||
+                  e.key === "-"
+                ) {
                   e.preventDefault();
                 }
               }}
@@ -180,8 +192,8 @@ const CreateEcography = () => {
           required
         />
         <div className={styles.buttonContainer}>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className={`dark-gradient-green ${styles.btnSubmit}`}
             disabled={isSubmitting}
           >

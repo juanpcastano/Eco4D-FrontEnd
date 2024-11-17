@@ -1,0 +1,24 @@
+.mainContainer {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+  }
+
+.optionsContainer {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-bottom: #F4F5F7 1px solid;
+} 
+
+.optionSelected{
+    background: linear-gradient(to bottom, #51ffcb, #0bd397);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
