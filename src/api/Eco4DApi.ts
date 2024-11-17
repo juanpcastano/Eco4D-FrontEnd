@@ -1,7 +1,9 @@
 import axios from "axios";
+import { heartbeat } from "../services/apiHeartbeatService";
 
+const backendUrl = await heartbeat();
 const Eco4DApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: backendUrl,
   withCredentials: true 
 });
 
