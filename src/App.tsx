@@ -10,32 +10,30 @@ import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
 import Users from "./Pages/Users/Users";
 
-
-const NotFound= lazy(()=>  import( "./Pages/Not found/NotFound"));
-const Layout = lazy(()=> import("./Pages/Layout/Layout"));
-const History = lazy(()=> import("./Pages/History/History"));
-const Login = lazy(()=> import("./Pages/Login/Login"));
-const Ecography = lazy(()=> import("./Pages/Ecography/Ecography"));
-const Profile = lazy(()=> import("./Pages/Profile/Profile"));
-const Settings = lazy(()=> import("./Pages/Settings/Settings"));
-const RoleGuard = lazy(()=> import("./Guards/RoleGuard"));
-const Support = lazy(()=> import("./Pages/Support/Support"));
-const CreateEcography = lazy(()=> import("./Pages/CreateEcograhy/CreateEcography"));
-const Analytics = lazy(()=> import("./Pages/Analytics/Analytics"));
-const Requests = lazy(()=> import("./Pages/Requests/Requests"));
-const Request = lazy(()=> import("./Pages/Request/Request"));
+const NotFound = lazy(() => import("./Pages/Not found/NotFound"));
+const Layout = lazy(() => import("./Pages/Layout/Layout"));
+const History = lazy(() => import("./Pages/History/History"));
+const Login = lazy(() => import("./Pages/Login/Login"));
+const Ecography = lazy(() => import("./Pages/Ecography/Ecography"));
+const Profile = lazy(() => import("./Pages/Profile/Profile"));
+const Settings = lazy(() => import("./Pages/Settings/Settings"));
+const RoleGuard = lazy(() => import("./Guards/RoleGuard"));
+const Support = lazy(() => import("./Pages/Support/Support"));
+const CreateEcography = lazy(() => import("./Pages/CreateEcograhy/CreateEcography"));
+const Analytics = lazy(() => import("./Pages/Analytics/Analytics"));
+const Requests = lazy(() => import("./Pages/Requests/Requests"));
+const Request = lazy(() => import("./Pages/Request/Request"));
 
 function App() {
-  /* const userState = useSelector((store: AppStore) => store.user); */
   return (
     <>
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <Provider store={store}>
           <BrowserRouter>
             <Routes>
               <Route
                 path="/"
-                element={<Navigate to={PublicRoutes.HISTORY.route} />}
+                element={<Navigate to={PrivateRoutes.HISTORY.route} />}
               />
               <Route path={PublicRoutes.LOGIN.route} element={<Login />} />
               <Route path={PublicRoutes.REGISTER.route} element={<Register />} />
@@ -44,7 +42,7 @@ function App() {
                 <Route element={<Layout />}>
                   <Route path={PrivateRoutes.HISTORY.route} element={<History />} />
                   <Route
-                    path={PrivateRoutes.ECOGRAPHY.route}
+                    path="/ecography/:id"  // Cambiado para aceptar el parámetro ID
                     element={<Ecography />}
                   />
                   <Route path={PrivateRoutes.PROFILE.route} element={<Profile />} />

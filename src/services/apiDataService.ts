@@ -41,3 +41,17 @@ export const ApiCallSubirDiagnostico = async (diagnostico:any) => {
     throw err; // Lanzar el error para manejarlo en el componente
   }
 };
+
+export const ApiCallObtenerDiagnosticoPorId = async (id: string) => {
+  try {
+    const result = await Eco4DApi.get(`/diagnosticos/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener diagnóstico:", err);
+    throw err;
+  }
+};
