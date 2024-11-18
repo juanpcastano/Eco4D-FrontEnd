@@ -26,7 +26,7 @@ export default function ProfileSettings() {
         setUserData(response.data);
         setIsLoading(false);
       } catch (err) {
-        setError('Error al cargar los datos del usuario');
+        setError(`Error al cargar los datos del usuario ${err}`);
         setIsLoading(false);
       }
     };
