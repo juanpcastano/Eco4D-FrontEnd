@@ -1,8 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Settings.module.css';
+import Eco4DApi from '../../api/Eco4DApi';
+
+interface UserData {
+  identificacion: number;
+  tipoIdentificacion: string;
+  nombre_completo: string;
+  correo_electronico: string;
+  rol: string;
+  pais: string;
+  ciudad: string;
+  fecha_nacimiento: string;
+}
 
 export default function ProfileSettings() {
   const [activeTab, setActiveTab] = useState('preferences');
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await Eco4DApi.get<UserData>('/usuarios');
+        setUserData(response.data);
+        setIsLoading(false);
+      } catch (err) {
+        setError('Error al cargar los datos del usuario');
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const renderPreferences = () => (
     <div>
@@ -16,70 +46,80 @@ export default function ProfileSettings() {
         </div>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="timezone">Zona Horaria</label>
-          <select className={styles.select} id="timezone" defaultValue="gmt-12">
-            <option value="gmt-12">(GMT-12:00) International Date Line West</option>
-            <option value="gmt-11">(GMT-11:00) Midway Island, Samoa</option>
-            <option value="gmt-10">(GMT-10:00) Hawaii</option>
+          <select className={styles.select} id="timezone" defaultValue="gmt-5">
+            <option value="gmt-5">(GMT-5:00) Bogotá, Lima, Quito</option>
+            <option value="gmt-4">(GMT-4:00) Caracas, La Paz</option>
+            <option value="gmt-3">(GMT-3:00) Buenos Aires, Georgetown</option>
           </select>
         </div>
       </div>
     </div>
   );
 
-  const renderProfile = () => (
-    <div className={styles.profileContainer}>
-      <div className={styles.avatarContainer}>
-        <img src="/placeholder.svg" alt="Profile" className={styles.avatar} />
-        <button className={styles.editButton}>
-          <PencilIcon />
-        </button>
-      </div>
-      <div className={styles.formContainer}>
-        <div className={styles.formLayout}>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="name">Tu nombre</label>
-            <input className={styles.input} id="name" defaultValue="Angela Tina" />
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="id">Número de identificación</label>
-            <div className={styles.idContainer}>
-              <input className={styles.input} id="id" defaultValue="103920492" />
-              <select className={styles.select} defaultValue="cc">
-                <option value="cc">C.C.</option>
-                <option value="ce">C.E.</option>
+  const renderProfile = () => {
+    if (isLoading) return <div>Cargando datos del usuario...</div>;
+    if (error) return <div>{error}</div>;
+    if (!userData) return <div>No se encontraron datos del usuario</div>;
+
+    return (
+      <div className={styles.profileContainer}>
+        <div className={styles.avatarContainer}>
+          <img src="/placeholder.svg" alt="Profile" className={styles.avatar} />
+          <button className={styles.editButton}>
+            <PencilIcon />
+          </button>
+        </div>
+        <div className={styles.formContainer}>
+          <div className={styles.formLayout}>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="name">Tu nombre</label>
+              <input className={styles.input} id="name" defaultValue={userData.nombre_completo} />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="id">Número de identificación</label>
+              <div className={styles.idContainer}>
+                <input className={styles.input} id="id" defaultValue={userData.identificacion} />
+                <select className={styles.select} defaultValue={userData.tipoIdentificacion}>
+                  <option value="CC">C.C.</option>
+                  <option value="CE">C.E.</option>
+                </select>
+              </div>
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="email">Email</label>
+              <input className={styles.input} id="email" type="email" defaultValue={userData.correo_electronico} />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="city">Ciudad</label>
+              <select className={styles.select} id="city" defaultValue={userData.ciudad}>
+                <option value="Bogotá">Bogotá</option>
+                <option value="Medellín">Medellín</option>
+                <option value="Cali">Cali</option>
+                <option value="Barranquilla">Barranquilla</option>
+              </select>
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="birthdate">Fecha de nacimiento</label>
+              <input 
+                className={styles.input} 
+                id="birthdate" 
+                type="date" 
+                defaultValue={new Date(userData.fecha_nacimiento).toISOString().split('T')[0]} 
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="country">País</label>
+              <select className={styles.select} id="country" defaultValue={userData.pais}>
+                <option value="Colombia">Colombia</option>
+                <option value="México">México</option>
+                <option value="Argentina">Argentina</option>
               </select>
             </div>
           </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="email">Email</label>
-            <input className={styles.input} id="email" type="email" defaultValue="angelatina@gmail.com" />
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="city">Ciudad</label>
-            <select className={styles.select} id="city" defaultValue="cali">
-              <option value="cali">Cali</option>
-              <option value="bogota">Bogotá</option>
-              <option value="medellin">Medellín</option>
-            </select>
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="birthdate">Fecha de nacimiento</label>
-            <select className={styles.select} id="birthdate" defaultValue="1990-01-25">
-              <option value="1990-01-25">25 January 1990</option>
-            </select>
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="country">País</label>
-            <select className={styles.select} id="country" defaultValue="colombia">
-              <option value="colombia">Colombia</option>
-              <option value="mexico">México</option>
-              <option value="argentina">Argentina</option>
-            </select>
-          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className={styles.mainContainer}>
