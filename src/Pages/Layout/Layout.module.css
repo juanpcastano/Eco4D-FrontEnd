@@ -56,7 +56,7 @@
   
   @media (max-width: 600px) {
     .contentBackground{
-        padding: 12px;
+        padding: 12px 12px 100px 12px
     }
     .bottombar {
       display: block  ;

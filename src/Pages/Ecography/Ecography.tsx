@@ -83,7 +83,6 @@ export default function Ecography() {
       <h1 className={styles.title}>Ecografía #{diagnosticData.id}</h1>
       <div className={styles.container}>
         <div className={styles.card}>
-
           <div className={styles.mediaContainer}>
             {diagnosticData.enlaceVideo && (
               <video
@@ -126,28 +125,33 @@ export default function Ecography() {
             </div>
 
             <div className={styles.actions}>
-              <button className={`${styles.button} dark-gradient-green`} onClick={() => window.print()}>
+              <button
+                className={`${styles.button} dark-gradient-green`}
+                onClick={() => window.print()}
+              >
                 Imprimir Diagnóstico
               </button>
             </div>
 
             {userState.rol === "P" && !diagnosticData.calificacion && (
               <div className={styles.feedback}>
-                <h3 className={styles.feedbackTitle}>
-                  ¿Qué te ha parecido el servicio?
-                </h3>
-                <div className={styles.stars}>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      onClick={() => setRating(star)}
-                      className={`${styles.star} ${
-                        rating >= star ? styles.filled : ""
-                      }`}
-                    >
-                      ★
-                    </button>
-                  ))}
+                <div className={styles.titleAndStars}>
+                  <h3 className={styles.feedbackTitle}>
+                    ¿Qué te ha parecido el servicio?
+                  </h3>
+                  <div className={styles.stars}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => setRating(star)}
+                        className={`${styles.star} ${
+                          rating >= star ? styles.filled : ""
+                        }`}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div className={styles.feedbackForm}>
@@ -164,7 +168,7 @@ export default function Ecography() {
 
                 <div className={styles.submitFeedback}>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} dark-gradient-green`}
                     onClick={async () => {
                       try {
                         await ApiCallObtenerDiagnosticoPorId(id!);

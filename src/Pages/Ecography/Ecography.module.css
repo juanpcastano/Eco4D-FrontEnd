@@ -106,6 +106,14 @@
     color: #2d3748;
     margin-bottom: 16px;
   }
+
+  .titleAndStars{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
   
   .stars {
     display: flex;
@@ -117,7 +125,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 32px;
+    font-size: 60px;
     color: #cbd5e0;
     transition: color 0.2s;
   }
@@ -137,12 +145,13 @@
   }
   
   .feedbackTextarea {
+    box-sizing: border-box;
     width: 100%;
     min-height: 120px;
     padding: 12px;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    resize: vertical;
+    resize: none;
     font-family: inherit;
   }
   
