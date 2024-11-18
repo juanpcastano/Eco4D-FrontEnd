@@ -21,54 +21,90 @@ const CreateEcography = () => {
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      setPhoto(event.target.files[0]);
+      const file = event.target.files[0];
+      // Validar tamaño y tipo de imagen
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+      if (file.size > maxSize) {
+        alert("El archivo de imagen no debe superar 5MB");
+        return;
+      }
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Solo se permiten archivos de imagen JPG, PNG o GIF");
+        return;
+      }
+
+      setPhoto(file);
     }
   };
 
   const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.target.files &&
-      event.target.files[0] &&
-      event.target.files[0].type === "video/*"
-    ) {
-      setVideo(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      // Validar tamaño y tipo de video
+      const maxSize = 50 * 1024 * 1024; // 50MB
+      const allowedTypes = ['video/mp4', 'video/mpeg', 'video/quicktime', 'video/avi'];
+
+      if (file.size > maxSize) {
+        alert("El archivo de video no debe superar 50MB");
+        return;
+      }
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Solo se permiten archivos de video MP4, MPEG, QuickTime o AVI");
+        return;
+      }
+
+      setVideo(file);
     }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!selectedPatient || !gestationalAge || !diagnosisDetails) {
-      alert("Por favor, complete todos los campos obligatorios");
+    // Validaciones
+    if (!selectedPatient) {
+      alert("Por favor, seleccione un paciente");
+      return;
+    }
+
+    if (!gestationalAge || parseInt(gestationalAge) < 0 || parseInt(gestationalAge) > 36) {
+      alert("Por favor, ingrese una edad gestacional válida (0-36 semanas)");
+      return;
+    }
+
+    if (!diagnosisDetails || diagnosisDetails.length < 10) {
+      alert("La descripción del diagnóstico debe tener al menos 10 caracteres");
       return;
     }
 
     try {
       setIsSubmitting(true);
 
-      // Aquí irá la lógica para enviar los datos al backend
       const formData = new FormData();
-      formData.append("paciente", selectedPatient);
-      formData.append("edad_gestacional", gestationalAge);
-      formData.append("diagnostico", diagnosisDetails);
-      if (photo) formData.append("foto", photo);
+      formData.append("pacienteId", selectedPatient);
+      formData.append("descripcion", diagnosisDetails);
+      formData.append("edadGestacional", gestationalAge);
+      
+      if (photo) formData.append("imagen", photo);
       if (video) formData.append("video", video);
 
-      // Ejemplo de envío (ajusta según tu API):
-      let res = ApiCallSubirDiagnostico(formData);
-      console.log(res);
+      const response = await ApiCallSubirDiagnostico(formData);
 
-      // if (!response.ok) throw new Error('Error al guardar la ecografía');
-
-      alert("Ecografía guardada exitosamente");
-      // Limpiar el formulario
-      setSelectedPatient("");
-      setGestationalAge("");
-      setDiagnosisDetails("");
-      setPhoto(null);
-      setVideo(null);
-    } catch (error) {
-      alert("Error al guardar la ecografía: " + (error as Error).message);
+      if (response) {
+        alert("Ecografía guardada exitosamente");
+        // Limpiar el formulario
+        setSelectedPatient("");
+        setGestationalAge("");
+        setDiagnosisDetails("");
+        setPhoto(null);
+        setVideo(null);
+      }
+    } catch (error: any) {
+      console.error("Error al guardar la ecografía:", error);
+      alert(`Error al guardar la ecografía: ${error.response?.data?.message || error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -80,8 +116,6 @@ const CreateEcography = () => {
     const cargarPacientes = async () => {
       try {
         const data = await ApiCallObtenerPacientes();
-        console.log(data);
-
         setPacientes(data);
       } catch (error) {
         let AxiosErr = error as AxiosError;
@@ -92,7 +126,7 @@ const CreateEcography = () => {
         ) {
           navigate("/login");
         }
-        console.error("Error al cargar pacieentes:", error);
+        console.error("Error al cargar pacientes:", error);
         setPacientes([]);
       }
     };
@@ -139,13 +173,14 @@ const CreateEcography = () => {
             required
           >
             <option value="">Seleccione...</option>
-            {pacientes.length>0 && pacientes.map((paciente) => {
-              return (
-                <option value={paciente.identificacion}>
-                  {paciente.nombre_completo + " - " + paciente.identificacion}
-                </option>
-              );
-            })}
+            {pacientes.length > 0 && pacientes.map((paciente, index) => (
+              <option 
+                key={index} 
+                value={paciente.identificacion}
+              >
+                {paciente.nombre_completo + " - " + paciente.identificacion}
+              </option>
+            ))}
           </select>
           <div className={styles.weeks}>
             <input
@@ -186,10 +221,11 @@ const CreateEcography = () => {
         <hr />
         <textarea
           className={styles.textarea}
-          placeholder="Escribe los detalles del diagnóstico"
+          placeholder="Escribe los detalles del diagnóstico (mínimo 10 caracteres)"
           value={diagnosisDetails}
           onChange={(e) => setDiagnosisDetails(e.target.value)}
           required
+          minLength={10}
         />
         <div className={styles.buttonContainer}>
           <button
