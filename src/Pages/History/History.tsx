@@ -53,10 +53,12 @@ const History = () => {
               minute: "2-digit",
             }),
             doctorEncargado: diagnostico.medico?.nombre_completo || "N/A",
+            paciente: diagnostico.paciente?.nombre_completo || "N/A",
           };
         });
 
         setDiagnosticos(diagnosticosParseados);
+        console.log(diagnosticosParseados)
         setError(null);
       } catch (error) {
         const axiosError = error as AxiosError;
@@ -111,12 +113,12 @@ const History = () => {
 
     // Ajustar headers y keys según el rol del usuario
     const headers = userState.rol === "P"
-      ? ["Fecha", "Hora", "ID", "Doctor Encargado", ""]
-      : ["Fecha", "Hora", "ID", ""];
+      ? ["Fecha", "Hora", "ID", "Doctor Encargado", "Semanas de Gestación",""]
+      : ["Fecha", "Hora", "ID", "Paciente", "Semanas de Gestación", ""];
 
     const keys = userState.rol === "P"
-      ? ["fecha", "hora", "id", "doctorEncargado"]
-      : ["fecha", "hora", "id"];
+      ? ["fecha", "hora", "id",  "doctorEncargado", "edadGestacional"]
+      : ["fecha", "hora", "id", "paciente", "edadGestacional"];
 
     return (
       <Table
