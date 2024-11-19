@@ -37,7 +37,7 @@ export default function ProfileSettings() {
     return (
       <div className={styles.profileContainer}>
         <div className={styles.avatarContainer}>
-          <img src="/placeholder.svg" alt="Profile" className={styles.avatar} />
+          <img src={userData.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"} alt="Profile" className={styles.avatar} />
           <button className={styles.editButton}>
             <PencilIcon />
           </button>
