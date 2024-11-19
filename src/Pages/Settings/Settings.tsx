@@ -1,14 +1,60 @@
-import { useState} from 'react';
+import { useState, useRef } from 'react';
 import styles from './Settings.module.css';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../Redux/store';
-
-
+import Eco4DApi from '../../api/Eco4DApi'; // Asegúrate de que la ruta sea correcta
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../Redux/States/user';
 
 export default function ProfileSettings() {
   const [activeTab, setActiveTab] = useState('preferences');
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const userData = useSelector((store: AppStore) => store.user);
+  const dispatch = useDispatch();
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    
+    console.log('handleFileChange ejecutado');
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await Eco4DApi.put('/usuarios/foto', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Failed to upload image');
+      }
+
+      const result = response.data;
+      // Assuming the API returns the new image URL
+      // You might need to update the Redux store here with the new URL
+      console.log('Image uploaded successfully:', result);
+      dispatch(updateUser({url_foto_de_perfil: result}));
+      // For demonstration, we'll just log the success. In a real app, you'd update the state/store.
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      // Handle error (e.g., show an error message to the user)
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleEditClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   const renderPreferences = () => (
     <div>
       <div className={styles.formLayout}>
@@ -37,10 +83,26 @@ export default function ProfileSettings() {
     return (
       <div className={styles.profileContainer}>
         <div className={styles.avatarContainer}>
-          <img src={userData.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"} alt="Profile" className={styles.avatar} />
-          <button className={styles.editButton}>
-            <PencilIcon />
+          <img 
+            src={userData.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"} 
+            alt="Profile" 
+            className={styles.avatar} 
+          />
+          <button 
+            className={styles.editButton} 
+            onClick={handleEditClick} 
+            disabled={isUploading}
+            type="button"
+          >
+            {isUploading ? <LoadingIcon /> : <PencilIcon />}
           </button>
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            style={{ display: 'none' }} 
+            onChange={handleFileChange}
+            accept="image/*"
+          />
         </div>
         <div className={styles.formContainer}>
           <div className={styles.formLayout}>
@@ -109,7 +171,6 @@ export default function ProfileSettings() {
             className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('profile')}
           >
-            
             <span className={styles.span}>Mi Perfil</span>
             <div className={`${styles.decorator} ${activeTab === 'profile' ? styles.decoratorActive : ''}`}></div>
           </div>
@@ -140,6 +201,32 @@ function PencilIcon() {
     >
       <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
       <path d="m15 5 4 4" />
+    </svg>
+  );
+}
+
+function LoadingIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={styles.loadingIcon}
+    >
+      <line x1="12" y1="2" x2="12" y2="6" />
+      <line x1="12" y1="18" x2="12" y2="22" />
+      <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+      <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+      <line x1="2" y1="12" x2="6" y2="12" />
+      <line x1="18" y1="12" x2="22" y2="12" />
+      <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+      <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
     </svg>
   );
 }

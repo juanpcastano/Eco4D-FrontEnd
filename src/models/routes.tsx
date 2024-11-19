@@ -12,9 +12,9 @@ export const PrivateRoutes = {
   HOME: {
     P: { icon: "folder", label: "Mis Ecografías", route: "/history" },
     M: { icon: "folder", label: "Mis Ecografías", route: "/history" },
-    A: { icon: "Monitoring", label: "Analíticas", route: "/analytics" },
+    A: { icon: "Monitoring", label: "Analíticas", route: "/analytics" }
   },
-  P: {
+  PM: {
     SUPPORT: { icon: "help", label: "Soporte", route: "/support" },
   },
   M: {

@@ -47,9 +47,9 @@ function App() {
                   />
                   <Route path={PrivateRoutes.PROFILE.route} element={<Profile />} />
                   <Route path={PrivateRoutes.SETTINGS.route} element={<Settings />} />
-                  <Route element={<RoleGuard role="P" />}>
+                  <Route element={<RoleGuard role={["P","M"]} />}>
                     <Route
-                      path={PrivateRoutes.P.SUPPORT.route}
+                      path={PrivateRoutes.PM.SUPPORT.route}
                       element={<Support />}
                     />
                   </Route>
@@ -58,6 +58,7 @@ function App() {
                       path={PrivateRoutes.M.CREATE_ECOGRAPHY.route}
                       element={<CreateEcography />}
                     />
+                    
                   </Route>
                   <Route element={<RoleGuard role="A" />}>
                     <Route

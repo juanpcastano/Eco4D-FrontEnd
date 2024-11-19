@@ -11,22 +11,47 @@ const Sidebar = () => {
     <div className={styles.navItemsContainer}>
       <NavItem
         Icon={
-          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].icon
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME]
+            .icon
         }
         label={
-          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].label
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME]
+            .label
         }
         to={
-          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME].route
+          PrivateRoutes.HOME[userState.rol as keyof typeof PrivateRoutes.HOME]
+            .route
         }
       />
       {Object.values(
         PrivateRoutes[userState.rol as keyof typeof PrivateRoutes]
-      ).map((route) => {
+      ).map((route, key) => {
         return (
-          route.icon && <NavItem Icon={route.icon} label={route.label} to={route.route} />
+          route.icon && (
+            <NavItem
+              key={key}
+              Icon={route.icon}
+              label={route.label}
+              to={route.route}
+            />
+          )
         );
       })}
+      {(userState.rol == "M" || userState.rol == "P") &&
+        Object.values(
+          PrivateRoutes.PM
+        ).map((route, key) => {
+          return (
+            route.icon && (
+              <NavItem
+                key={key}
+                Icon={route.icon}
+                label={route.label}
+                to={route.route}
+              />
+            )
+          );
+        })}
       <NavItem
         Icon={PrivateRoutes.SETTINGS.icon}
         label={PrivateRoutes.SETTINGS.label}
