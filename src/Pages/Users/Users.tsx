@@ -4,7 +4,7 @@ import { ApiCallObtenerPacientes } from "../../services/apiDataService";
 import Table from "../../Components/Table/Table";
 import styles from './Users.module.css';
 
-const PatientList = () => {
+const Users = () => {
   const navigate = useNavigate();
   const [pacientes, setPacientes] = useState<any[]>([]); 
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ const PatientList = () => {
         console.error("Error al cargar pacientes:", error);
         
         if (error.response?.status === 401) {
-          navigate("/login");
+          navigate("/paciente-error");
         } else {
           setError("No se pudieron cargar los pacientes. Por favor, intente nuevamente.");
         }
@@ -66,7 +66,7 @@ const PatientList = () => {
 
   // Define los encabezados y las claves que usará la tabla
   const headers = ["Id","Nombre", "Correo", "Edad", "Perfiles"];
-  const keys = ["Id","nombre_completo", "correo_electronico", "edad", "Perfil"]; // 'id' es necesario para el botón "Ver Detalles"
+  const keys = ["Id","nombre_completo", "correo_electronico", "edad", "Perfil"]; // 'id' es necesario para el botón 
 
   return (
     <div className={styles.container}>
@@ -86,4 +86,4 @@ const PatientList = () => {
   );
 };
 
-export default PatientList;
+export default Users;
