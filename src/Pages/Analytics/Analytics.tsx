@@ -25,7 +25,7 @@ const Analytics = () => {
 
         {/* Gráfico de área */}
         <div className="bg-white p-4 rounded-lg shadow-md">
-          <div className="text-xl font-medium">Gráfico de área</div>
+          <div className="text-xl font-medium">Uso de la app</div>
           <AreaChartt />
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
@@ -37,6 +37,12 @@ const Analytics = () => {
         <div className="bg-white p-4 rounded-lg shadow-md">
           <p className="text-xl font-medium">
             Calificación promedio del servicio
+          </p>
+          <Linearchart />
+        </div>
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <p className="text-xl font-medium">
+            Total de solicitudes
           </p>
           <Linearchart />
         </div>
