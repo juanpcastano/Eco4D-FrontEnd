@@ -1,39 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import styles from './Settings.module.css';
-import Eco4DApi from '../../api/Eco4DApi';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../Redux/store';
 
-interface UserData {
-  identificacion: number;
-  tipoIdentificacion: string;
-  nombre_completo: string;
-  correo_electronico: string;
-  rol: string;
-  pais: string;
-  ciudad: string;
-  fecha_nacimiento: string;
-}
+
 
 export default function ProfileSettings() {
   const [activeTab, setActiveTab] = useState('preferences');
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await Eco4DApi.get<UserData>('/usuarios');
-        setUserData(response.data);
-        setIsLoading(false);
-      } catch (err) {
-        setError(`Error al cargar los datos del usuario ${err}`);
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
+  const userData = useSelector((store: AppStore) => store.user);
   const renderPreferences = () => (
     <div>
       <div className={styles.formLayout}>
@@ -57,8 +32,6 @@ export default function ProfileSettings() {
   );
 
   const renderProfile = () => {
-    if (isLoading) return <div>Cargando datos del usuario...</div>;
-    if (error) return <div>{error}</div>;
     if (!userData) return <div>No se encontraron datos del usuario</div>;
 
     return (
