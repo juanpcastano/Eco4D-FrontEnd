@@ -93,13 +93,13 @@ const Users = () => {
     };
 
     filterData();
-  }, [activeTab]);
+  }, [activeTab, pacientes, medicos, administradores]);
   
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
         <div className={styles.loadingSpinner} />
-        <p className={styles.loadingText}>Cargando pacientes...</p>
+        <p className={styles.loadingText}>Cargando usuarios...</p>
       </div>
     );
   }
