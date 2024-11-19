@@ -35,7 +35,7 @@ const Users = () => {
     };
 
     cargarPacientes();
-  }, [activeTab]);
+  }, []);
   useEffect(() => {
     const cargarMedicos = async () => {
       try {
@@ -57,7 +57,7 @@ const Users = () => {
     };
 
     cargarMedicos();
-  }, [activeTab]);
+  }, []);
   useEffect(() => {
     const cargarAdministradores = async () => {
       try {
@@ -79,7 +79,7 @@ const Users = () => {
     };
 
     cargarAdministradores();
-  }, [activeTab]);
+  }, []);
 
   useEffect(() => {
     const filterData = () => {
