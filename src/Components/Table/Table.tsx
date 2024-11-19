@@ -37,6 +37,15 @@ const Table = ({
                   </Link>
                 </td>
               )}
+              {keys.includes("identificacion") && (
+                <td className={styles.actions}>
+                  <Link to={pathLink + "/" + item.identificacion}>
+                    <button className={styles.detailsButton}>
+                      Ver Perfil
+                    </button>
+                  </Link>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

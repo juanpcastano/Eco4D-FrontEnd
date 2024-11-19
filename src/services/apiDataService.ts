@@ -1,3 +1,5 @@
+//apiDataService
+
 import Eco4DApi from "../api/Eco4DApi"
 
 export const ApiCallObtenerDiagnosticos = async () => {
