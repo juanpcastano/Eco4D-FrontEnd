@@ -30,6 +30,34 @@ export const ApiCallObtenerPacientes = async () => {
   }
 };
 
+export const ApiCallObtenerMedicos = async () => {
+  try {
+    const result = await Eco4DApi.get("/usuarios/medicos", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener medicos:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
+export const ApiCallObtenerAdministradores = async () => {
+  try {
+    const result = await Eco4DApi.get("/usuarios/administradores", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener medicos:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
 export const ApiCallSubirDiagnostico = async (diagnostico:any) => {
   try {
     const result = await Eco4DApi.post("/diagnosticos", diagnostico, {
