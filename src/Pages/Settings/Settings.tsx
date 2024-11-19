@@ -129,13 +129,16 @@ export default function ProfileSettings() {
             className={`${styles.tab} ${activeTab === 'preferences' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('preferences')}
           >
-            Preferencias
+            <span className={styles.span}>Preferencias</span>
+            <div className={`${styles.decorator} ${activeTab === 'preferences' ? styles.decoratorActive : ''}`}></div>
           </div>
           <div
             className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('profile')}
           >
-            Mi Perfil
+            
+            <span className={styles.span}>Mi Perfil</span>
+            <div className={`${styles.decorator} ${activeTab === 'profile' ? styles.decoratorActive : ''}`}></div>
           </div>
         </div>
         <div className={styles.content}>
