@@ -8,7 +8,7 @@ const Topbar = ({ logoutFn }: { logoutFn: () => void }) => {
     <div className={styles.TopbarContainer}>
       <div className={styles.logoContainer} onClick={()=>{<Navigate to="/history"/>}}>
         <img
-          src="src\assets\logo.png" // Imagen de perfil
+          src="https://eco4dimg.blob.core.windows.net/public-eco4d/Logo.png" 
           alt="Eco4D Logo"
           className={styles.logo}
         />

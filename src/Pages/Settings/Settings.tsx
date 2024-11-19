@@ -1,39 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import styles from './Settings.module.css';
-import Eco4DApi from '../../api/Eco4DApi';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../Redux/store';
 
-interface UserData {
-  identificacion: number;
-  tipoIdentificacion: string;
-  nombre_completo: string;
-  correo_electronico: string;
-  rol: string;
-  pais: string;
-  ciudad: string;
-  fecha_nacimiento: string;
-}
+
 
 export default function ProfileSettings() {
   const [activeTab, setActiveTab] = useState('preferences');
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await Eco4DApi.get<UserData>('/usuarios');
-        setUserData(response.data);
-        setIsLoading(false);
-      } catch (err) {
-        setError(`Error al cargar los datos del usuario ${err}`);
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
+  const userData = useSelector((store: AppStore) => store.user);
   const renderPreferences = () => (
     <div>
       <div className={styles.formLayout}>
@@ -57,14 +32,12 @@ export default function ProfileSettings() {
   );
 
   const renderProfile = () => {
-    if (isLoading) return <div>Cargando datos del usuario...</div>;
-    if (error) return <div>{error}</div>;
     if (!userData) return <div>No se encontraron datos del usuario</div>;
 
     return (
       <div className={styles.profileContainer}>
         <div className={styles.avatarContainer}>
-          <img src="/placeholder.svg" alt="Profile" className={styles.avatar} />
+          <img src={userData.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"} alt="Profile" className={styles.avatar} />
           <button className={styles.editButton}>
             <PencilIcon />
           </button>
@@ -129,13 +102,16 @@ export default function ProfileSettings() {
             className={`${styles.tab} ${activeTab === 'preferences' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('preferences')}
           >
-            Preferencias
+            <span className={styles.span}>Preferencias</span>
+            <div className={`${styles.decorator} ${activeTab === 'preferences' ? styles.decoratorActive : ''}`}></div>
           </div>
           <div
             className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('profile')}
           >
-            Mi Perfil
+            
+            <span className={styles.span}>Mi Perfil</span>
+            <div className={`${styles.decorator} ${activeTab === 'profile' ? styles.decoratorActive : ''}`}></div>
           </div>
         </div>
         <div className={styles.content}>

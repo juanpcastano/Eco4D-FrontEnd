@@ -133,7 +133,7 @@ const History = () => {
   return (
     <>
       <div className={styles.titleAndButton}>
-        <h2 className={styles.titulo}>Mis Ecografías</h2>
+        <h2 className={styles.title}>Mis Ecografías</h2>
         {userState.rol === "M" && (
           <button
             className={`dark-gradient-green ${styles.btnCrearDiagnostico}`}

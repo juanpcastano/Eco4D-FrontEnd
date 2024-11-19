@@ -1,49 +1,105 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ApiCallObtenerPacientes } from "../../services/apiDataService";
+import { ApiCallObtenerAdministradores, ApiCallObtenerMedicos, ApiCallObtenerPacientes } from "../../services/apiDataService";
 import Table from "../../Components/Table/Table";
-import styles from './Users.module.css';
+import styles from "./Users.module.css";
+import { AxiosError } from "axios";
 
-const PatientList = () => {
+const Users = () => {
   const navigate = useNavigate();
-  const [pacientes, setPacientes] = useState<any[]>([]); 
+  const [pacientes, setPacientes] = useState<any[]>([]);
+  const [medicos, setMedicos] = useState<any[]>([]);
+  const [administradores, setAdministradores] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [activeTab, setActiveTab] = useState("P")
   useEffect(() => {
     const cargarPacientes = async () => {
       try {
-        setIsLoading(true);
         const data = await ApiCallObtenerPacientes();
-
-        if (!Array.isArray(data)) {
-          throw new Error("Respuesta inválida del servidor");
-        }
-
-        const pacientesFiltrados = data.filter(usuario => usuario.rol === 'P');
-        setPacientes(pacientesFiltrados);
-        setError(null);
-      } catch (error) {
-        console.error("Error al cargar pacientes:", error);
-        
-        if (error.response?.status === 401) {
-          navigate("/login");
-        } else {
-          setError("No se pudieron cargar los pacientes. Por favor, intente nuevamente.");
-        }
-      } finally {
+        setPacientes(data);
         setIsLoading(false);
+      } catch (error) {
+        let AxiosErr = error as AxiosError;
+        setError((AxiosErr.response?.data as { message: string }).message);
+        if (
+          (AxiosErr.response?.data as { message: string }).message ==
+          "Token inválido o expirado"
+        ) {
+          navigate("/login");
+        }
+        console.error("Error al cargar pacientes:", error);
+        setPacientes([]);
       }
     };
 
     cargarPacientes();
-  }, [navigate]);
+  }, []);
+  useEffect(() => {
+    const cargarMedicos = async () => {
+      try {
+        const data = await ApiCallObtenerMedicos();
+        setMedicos(data);
+        setIsLoading(false);
+      } catch (error) {
+        let AxiosErr = error as AxiosError;
+        setError((AxiosErr.response?.data as { message: string }).message);
+        if (
+          (AxiosErr.response?.data as { message: string }).message ==
+          "Token inválido o expirado"
+        ) {
+          navigate("/login");
+        }
+        console.error("Error al cargar pacientes:", error);
+        setMedicos([]);
+      }
+    };
 
+    cargarMedicos();
+  }, []);
+  useEffect(() => {
+    const cargarAdministradores = async () => {
+      try {
+        const data = await ApiCallObtenerAdministradores();
+        setAdministradores(data);
+        setIsLoading(false);
+      } catch (error) {
+        let AxiosErr = error as AxiosError;
+        setError((AxiosErr.response?.data as { message: string }).message);
+        if (
+          (AxiosErr.response?.data as { message: string }).message ==
+          "Token inválido o expirado"
+        ) {
+          navigate("/login");
+        }
+        console.error("Error al cargar pacientes:", error);
+        setAdministradores([]);
+      }
+    };
+
+    cargarAdministradores();
+  }, []);
+
+  useEffect(() => {
+    const filterData = () => {
+      if (activeTab === "P"){
+        setData(pacientes)
+      } else if (activeTab === "M"){
+        setData(medicos)
+      } else if (activeTab === "A"){
+        setData(administradores)
+      }
+    };
+
+    filterData();
+  }, [activeTab, pacientes, medicos, administradores]);
+  
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
         <div className={styles.loadingSpinner} />
-        <p className={styles.loadingText}>Cargando pacientes...</p>
+        <p className={styles.loadingText}>Cargando usuarios...</p>
       </div>
     );
   }
@@ -64,26 +120,47 @@ const PatientList = () => {
     );
   }
 
-  // Define los encabezados y las claves que usará la tabla
-  const headers = ["Id","Nombre", "Correo", "Edad", "Perfiles"];
-  const keys = ["Id","nombre_completo", "correo_electronico", "edad", "Perfil"]; // 'id' es necesario para el botón "Ver Detalles"
-
+  const headers = ["Id", "Nombre", "Correo", ""];
+  const keys = ["identificacion", "nombre_completo", "correo_electronico"];
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Lista de Pacientes</h2>
-        
+    <>
+      <div className={styles.mainContainer}>
+        <div className={styles.container}>
+          <div className={styles.tabList}>
+            <div
+              className={`${styles.tab} ${activeTab === 'P' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('P')}
+            >
+              <span className={styles.span}>Pacientes</span>
+              <div className={`${styles.decorator} ${activeTab === 'P' ? styles.decoratorActive : ''}`}></div>
+            </div>
+            <div
+              className={`${styles.tab} ${activeTab === 'M' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('M')}
+            >
+              <span className={styles.span}>Médicos</span>
+              <div className={`${styles.decorator} ${activeTab === 'M' ? styles.decoratorActive : ''}`}></div>
+            </div>
+            <div
+              className={`${styles.tab} ${activeTab === 'A' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('A')}
+            >
+              <span className={styles.span}>Administradores</span>
+              <div className={`${styles.decorator} ${activeTab === 'A' ? styles.decoratorActive : ''}`}></div>
+            </div>
+          </div>
+          <div className={styles.content}>
+            <Table
+              data={data}
+              headers={headers}
+              keys={keys}
+              pathLink="/perfil"
+            />
+          </div>
+        </div>
       </div>
-      
-      {/* Renderiza el componente Table */}
-      <Table
-        data={pacientes}
-        headers={headers}
-        keys={keys}
-        pathLink="/perfil" // Define la ruta base para el botón "Ver Detalles"
-      />
-    </div>
+    </>
   );
 };
 
-export default PatientList;
+export default Users;
