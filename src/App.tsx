@@ -60,12 +60,6 @@ function App() {
                     />
                     
                   </Route>
-                  <Route element={<RoleGuard role="M" />}>
-                    <Route
-                      path={PrivateRoutes.M.SUPPORT.route} // Cambiado para que sea /support.route}
-                      element={<Support />}
-                    />
-                  </Route>
                   <Route element={<RoleGuard role="A" />}>
                     <Route
                       path={PrivateRoutes.HOME.A.route}

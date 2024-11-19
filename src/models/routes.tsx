@@ -19,7 +19,6 @@ export const PrivateRoutes = {
   },
   M: {
     CREATE_ECOGRAPHY: { route: "/create" },
-    SUPPORT: { icon: "help", label: "Soporte", route: "/support" }
   },
   A: {
     REQUESTS: {
