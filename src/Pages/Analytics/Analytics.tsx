@@ -1,6 +1,8 @@
 const Analytics = () => {
   return (
-    <div>Graficas chidoris</div>
+    <div>
+      
+    </div>
   )
 }
 export default Analytics
