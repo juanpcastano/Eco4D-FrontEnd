@@ -1,44 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ApiCallObtenerPacientes } from "../../services/apiDataService";
 import Table from "../../Components/Table/Table";
-import styles from './Users.module.css';
+import styles from "./Users.module.css";
+import { AxiosError } from "axios";
 
 const Users = () => {
   const navigate = useNavigate();
-  const [pacientes, setPacientes] = useState<any[]>([]); 
+  const [pacientes, setPacientes] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [activeTab, setActiveTab] = useState("P")
   useEffect(() => {
     const cargarPacientes = async () => {
       try {
-        setIsLoading(true);
         const data = await ApiCallObtenerPacientes();
-
-        if (!Array.isArray(data)) {
-          throw new Error("Respuesta inválida del servidor");
-        }
-
-        const pacientesFiltrados = data.filter(usuario => usuario.rol === 'P');
-        setPacientes(pacientesFiltrados);
-        setError(null);
-      } catch (error) {
-        console.error("Error al cargar pacientes:", error);
-        
-        if (error.response?.status === 401) {
-          navigate("/paciente-error");
-        } else {
-          setError("No se pudieron cargar los pacientes. Por favor, intente nuevamente.");
-        }
-      } finally {
+        setPacientes(data);
         setIsLoading(false);
+      } catch (error) {
+        let AxiosErr = error as AxiosError;
+        setError((AxiosErr.response?.data as { message: string }).message);
+        if (
+          (AxiosErr.response?.data as { message: string }).message ==
+          "Token inválido o expirado"
+        ) {
+          navigate("/login");
+        }
+        console.error("Error al cargar pacientes:", error);
+        setPacientes([]);
       }
     };
 
     cargarPacientes();
-  }, [navigate]);
-
+  }, []);
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
@@ -64,25 +58,23 @@ const Users = () => {
     );
   }
 
-  // Define los encabezados y las claves que usará la tabla
-  const headers = ["Id","Nombre", "Correo", "Edad", "Perfiles"];
-  const keys = ["Id","nombre_completo", "correo_electronico", "edad", "Perfil"]; // 'id' es necesario para el botón 
+  const headers = ["Id", "Nombre", "Correo", ""];
+  const keys = ["identificacion", "nombre_completo", "correo_electronico"];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Lista de Pacientes</h2>
+    <>
+      <div className={styles.tabList}>
         
       </div>
-      
-      {/* Renderiza el componente Table */}
-      <Table
-        data={pacientes}
-        headers={headers}
-        keys={keys}
-        pathLink="/perfil" // Define la ruta base para el botón "Ver Detalles"
-      />
-    </div>
+      <div className={styles.content}>
+        <Table
+          data={activeTab === "P"? pacientes:[]}
+          headers={headers}
+          keys={keys}
+          pathLink="/perfil"
+        />
+      </div>
+    </>
   );
 };
 
