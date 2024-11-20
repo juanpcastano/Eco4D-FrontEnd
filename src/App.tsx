@@ -16,6 +16,7 @@ const History = lazy(() => import("./Pages/History/History"));
 const Login = lazy(() => import("./Pages/Login/Login"));
 const Ecography = lazy(() => import("./Pages/Ecography/Ecography"));
 const Settings = lazy(() => import("./Pages/Settings/Settings"));
+const SpecificUserSettings = lazy(() => import("./Pages/Settings/SpecificUserSettings"));
 const RoleGuard = lazy(() => import("./Guards/RoleGuard"));
 const SpecificUser = lazy(()=>import("./Pages/Users/specificUser"));
 const Support = lazy(() => import("./Pages/Support/Support"));
@@ -75,6 +76,10 @@ function App() {
                     <Route
                       path="/user/:id"  // Cambiado para aceptar el parámetro ID
                       element={<SpecificUser />}
+                    />
+                    <Route
+                      path="/settings/:id"  // Cambiado para aceptar el parámetro ID
+                      element={<SpecificUserSettings/>}
                     />
                     <Route
                       path={PrivateRoutes.A.REQUEST.route}
