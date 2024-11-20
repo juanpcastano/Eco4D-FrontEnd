@@ -76,13 +76,7 @@
 }
 
 .button {
-  padding: 16px 48px;
-  background: linear-gradient(to bottom, #51ffcb, #0bd397);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
+  width: max-content;
 }
 
 .editButton {
@@ -145,10 +139,10 @@
   width: auto;
 }
 
-.saveButtonContainer {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
+.ButtonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media (max-width: 768px) {

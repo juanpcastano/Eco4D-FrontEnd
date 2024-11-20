@@ -17,6 +17,7 @@ export const PrivateRoutes = {
   P:{},
   PM: {
     SUPPORT: { icon: "help", label: "Soporte", route: "/support" },
+    REQUEST: { route: "/request" },
   },
   M: {
     CREATE_ECOGRAPHY: { route: "/create" },

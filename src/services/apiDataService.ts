@@ -129,7 +129,7 @@ export const ApiCallCrearSolicitudSoporte = async (solicitudSoporte: any) => {
   }
 };
 
-// Exportar funcion que haga el llamado a la api con el endpoint /soporte/mis-solicitudes para obtener toas las solicitud de soporte
+// Exportar funcion que haga el llamado a la api con el endpoint /soporte/mis-solicitudes para obtener todas las solicitud de soporte
 export const ApiCallObtenerMisSolicitudesSoporte = async () => {
   try {
     const result = await Eco4DApi.get("/soporte/mis-solicitudes", {
@@ -144,6 +144,21 @@ export const ApiCallObtenerMisSolicitudesSoporte = async () => {
   }
 };
 
+// Exportar funcion que haga el llamado a la api con el endpoint /soporte/{id} para obtener una solicitud de soporte por id
+export const ApiCallObtenerSolicitudSoportePorId = async (id: string) => {
+  try {
+    const result = await Eco4DApi.get(`/soporte/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener solicitud de soporte:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+}
+
 export const ApiCallObtenerMensajes = async () => {
   try {
     const result = await Eco4DApi.get("/mensajes", {
@@ -157,6 +172,41 @@ export const ApiCallObtenerMensajes = async () => {
     throw err; // Lanza el error para que pueda ser manejado en el componente
   }
 };
+
+//exportar la función que haga el llamado a la api con el endpoint /mensajes/nuevo para crear un nuevo mensaje en una solicitud de soporte, el id no es parte del endpoint pero se pasa como parametro
+export const ApiCallCrearMensaje = async (id: string, mensaje: string) => {
+  try {
+    const result = await Eco4DApi.post("/mensajes/nuevo", {
+      solicitudId: parseInt(id, 10), // Convertir a número entero
+      descripcion: mensaje // Usar 'descripcion' en lugar de 'mensaje'
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al crear mensaje:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+}
+
+
+// Exportar la función que haga el llamado a la api con el endpoint /mensajes/obtener/{id} para obtener los mensajes de una solicitud de soporte con el id de la solicitud de soporte
+export const ApiCallObtenerMensajesPorId = async (id: string) => {
+  try {
+    const result = await Eco4DApi.get(`/mensajes/obtener/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener mensajes:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
 
 export const ApiCallObtenerUsuarioPorId = async (id:string) => {
   try {
