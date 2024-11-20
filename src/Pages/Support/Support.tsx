@@ -96,8 +96,6 @@ export default function Support() {
     }
   };
 
-  useEffect(()=>{console.log(solicitudes)},[solicitudes])
-
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
