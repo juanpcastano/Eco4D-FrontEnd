@@ -53,7 +53,7 @@ function App() {
                       element={<Support />}
                     />
                     <Route
-                      path={`${PrivateRoutes.PM.REQUEST.route}/:id`}
+                      path={`${PrivateRoutes.REQUEST.route}/:id`}
                       element={<Request />}
                     />
                   </Route>

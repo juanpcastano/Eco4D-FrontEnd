@@ -9,6 +9,7 @@ export const PrivateRoutes = {
   PROFILE: { route: "/profile" },
   ECOGRAPHY: { route: "/ecography" },
   HISTORY: { icon: "folder", label: "Mis Ecografías", route: "/history" },
+  REQUEST: { route: "/request" },
   HOME: {
     P: { icon: "folder", label: "Mis Ecografías", route: "/history" },
     M: { icon: "folder", label: "Mis Ecografías", route: "/history" },
@@ -17,7 +18,7 @@ export const PrivateRoutes = {
   P:{},
   PM: {
     SUPPORT: { icon: "help", label: "Soporte", route: "/support" },
-    REQUEST: { route: "/request" },
+    
   },
   M: {
     CREATE_ECOGRAPHY: { route: "/create" },
