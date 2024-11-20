@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Table from "../../Components/Table/Table";
 import styles from "./SpecificUser.module.css";
 import { UserInfo } from "../../models/user.model";
@@ -27,7 +27,10 @@ const SpecificUser = () => {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [diagnostics, setDiagnostics] = useState<Diagnostic[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const navigate = useNavigate();
+  const handleEditProfile = () => {
+    navigate(`/settings/${id}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -138,7 +141,7 @@ const SpecificUser = () => {
           )}
         </div>
         <div className={styles.buttonContainer}>
-          <button className={`${styles.btnSubmit} dark-gradient-green`}>
+          <button className={`${styles.btnSubmit} dark-gradient-green`} onClick={handleEditProfile}>
             Editar Perfil
           </button>
         </div>
