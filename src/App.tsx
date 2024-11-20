@@ -9,16 +9,15 @@ import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
 import Users from "./Pages/Users/Users";
-import SpecificUser from "./Pages/Users/specificUser";
 
 const NotFound = lazy(() => import("./Pages/Not found/NotFound"));
 const Layout = lazy(() => import("./Pages/Layout/Layout"));
 const History = lazy(() => import("./Pages/History/History"));
 const Login = lazy(() => import("./Pages/Login/Login"));
 const Ecography = lazy(() => import("./Pages/Ecography/Ecography"));
-const Profile = lazy(() => import("./Pages/Profile/Profile"));
 const Settings = lazy(() => import("./Pages/Settings/Settings"));
 const RoleGuard = lazy(() => import("./Guards/RoleGuard"));
+const SpecificUser = lazy(()=>import("./Pages/Users/specificUser"));
 const Support = lazy(() => import("./Pages/Support/Support"));
 const CreateEcography = lazy(() => import("./Pages/CreateEcograhy/CreateEcography"));
 const Analytics = lazy(() => import("./Pages/Analytics/Analytics"));
@@ -46,7 +45,6 @@ function App() {
                     path="/ecography/:id"  // Cambiado para aceptar el parámetro ID
                     element={<Ecography />}
                   />
-                  <Route path={PrivateRoutes.PROFILE.route} element={<Profile />} />
                   <Route path={PrivateRoutes.SETTINGS.route} element={<Settings />} />
                   <Route element={<RoleGuard role={["P","M"]} />}>
                     <Route
