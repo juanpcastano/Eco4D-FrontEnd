@@ -1,5 +1,5 @@
 import { DatePickerWithRange } from '@/Components/ui/daterangepicker';
-import { BarChartSolicitudes } from '@/Pages/Analytics/barchart';
+import { BarChartSolicitudes } from '@/Pages/Analytics/Solicitudestipo';
 import { AreaChartt } from '@/Pages/Analytics/areachart';
 
 import { Linearchart } from './linearchart';

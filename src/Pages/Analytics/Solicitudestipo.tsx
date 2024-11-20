@@ -27,26 +27,26 @@ const chartData = [
 
 const chartConfig = {
   visitors: {
-    label: "Visitors",
+    label: "Usuarios",
   },
-  chrome: {
-    label: "Chrome",
+  FallasT: {
+    label: "Fallas tecnicas",
     color: "hsl(var(--chart-1))",
   },
   safari: {
-    label: "Safari",
+    label: "Inconsistencia de datos",
     color: "hsl(var(--chart-2))",
   },
   firefox: {
-    label: "Firefox",
+    label: "Configuraciones",
     color: "hsl(var(--chart-3))",
   },
   edge: {
-    label: "Edge",
+    label: "Mala atención",
     color: "hsl(var(--chart-4))",
   },
   other: {
-    label: "Other",
+    label: "Otros",
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig
@@ -55,7 +55,7 @@ export function BarChartSolicitudes() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Active</CardTitle>
+        <CardTitle>Usuarios activos</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
