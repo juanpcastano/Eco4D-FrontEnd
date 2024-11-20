@@ -16,7 +16,6 @@ const Layout = lazy(() => import("./Pages/Layout/Layout"));
 const History = lazy(() => import("./Pages/History/History"));
 const Login = lazy(() => import("./Pages/Login/Login"));
 const Ecography = lazy(() => import("./Pages/Ecography/Ecography"));
-const Profile = lazy(() => import("./Pages/Profile/Profile"));
 const Settings = lazy(() => import("./Pages/Settings/Settings"));
 const RoleGuard = lazy(() => import("./Guards/RoleGuard"));
 const Support = lazy(() => import("./Pages/Support/Support"));
@@ -46,12 +45,15 @@ function App() {
                     path="/ecography/:id"  // Cambiado para aceptar el parámetro ID
                     element={<Ecography />}
                   />
-                  <Route path={PrivateRoutes.PROFILE.route} element={<Profile />} />
                   <Route path={PrivateRoutes.SETTINGS.route} element={<Settings />} />
                   <Route element={<RoleGuard role={["P","M"]} />}>
                     <Route
                       path={PrivateRoutes.PM.SUPPORT.route}
                       element={<Support />}
+                    />
+                    <Route
+                      path={`${PrivateRoutes.PM.REQUEST.route}/:id`}
+                      element={<Request />}
                     />
                   </Route>
                   <Route element={<RoleGuard role="M" />}>

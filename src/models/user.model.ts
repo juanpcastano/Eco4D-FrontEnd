@@ -9,3 +9,9 @@ export interface UserInfo{
     fecha_nacimiento: string,
     url_foto_de_perfil: string,
 }
+
+export interface Usuario {
+    id?: number;
+    nombre_completo?: string;  // Cambiado para coincidir con la respuesta
+    correo_electronico?: string;  // Cambiado para coincidir con la respuesta
+}
