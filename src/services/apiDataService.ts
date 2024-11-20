@@ -157,3 +157,32 @@ export const ApiCallObtenerMensajes = async () => {
     throw err; // Lanza el error para que pueda ser manejado en el componente
   }
 };
+
+export const ApiCallObtenerUsuarioPorId = async (id:string) => {
+  try {
+    const result = await Eco4DApi.get("/usuarios/"+id+"", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener usuario:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
+
+export const ApiCallObtenerDiagnosticosPorIdUsuario = async (id:string) => {
+  try {
+    const result = await Eco4DApi.get("diagnosticos/usuario/"+id+"", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener usuario:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
