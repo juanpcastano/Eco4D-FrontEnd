@@ -112,10 +112,10 @@ const Users = () => {
     );
   }
 
-  if (pacientes.length === 0) {
+  if (data.length === 0) {
     return (
       <div className={styles.emptyContainer}>
-        <span>No hay pacientes registrados en el sistema</span>
+        <span>No hay usuarios registrados en el sistema</span>
       </div>
     );
   }
@@ -154,7 +154,7 @@ const Users = () => {
               data={data}
               headers={headers}
               keys={keys}
-              pathLink="/perfil"
+              pathLink="/user"
             />
           </div>
         </div>
