@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import styles from './Settings.module.css';
-import Eco4DApi from '../../api/Eco4DApi';
-import { UserInfo } from '../../models/user.model';
-import { ApiCallObtenerUsuarioPorId } from '../../services/apiDataService';
+import { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./Settings.module.css";
+import Eco4DApi from "../../api/Eco4DApi";
+import { UserInfo } from "../../models/user.model";
+import { ApiCallObtenerUsuarioPorId } from "../../services/apiDataService";
 
 async function ApiCallPerfil(userData: Partial<UserInfo>): Promise<UserInfo> {
-  const response = await Eco4DApi.put('/usuarios/perfil', userData);
+  const response = await Eco4DApi.put("/usuarios/perfil", userData);
   return response.data;
 }
 
@@ -14,7 +14,7 @@ export default function SpecificUserSettings() {
   const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState("profile");
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -24,7 +24,7 @@ export default function SpecificUserSettings() {
         const userData = await ApiCallObtenerUsuarioPorId(id || "");
         setUser(userData);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       } finally {
         setLoading(false);
       }
@@ -33,30 +33,34 @@ export default function SpecificUserSettings() {
     fetchUserData();
   }, [id]);
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     setIsUploading(true);
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const response = await Eco4DApi.put('/usuarios/foto', formData, {
+      const response = await Eco4DApi.put("/usuarios/foto", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
       if (response.status !== 200) {
-        throw new Error('Failed to upload image');
+        throw new Error("Failed to upload image");
       }
 
       const result = response.data;
-      setUser(prevUser => prevUser ? {...prevUser, url_foto_de_perfil: result} : null);
+      setUser((prevUser) =>
+        prevUser ? { ...prevUser, url_foto_de_perfil: result } : null
+      );
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
     } finally {
       setIsUploading(false);
     }
@@ -68,9 +72,11 @@ export default function SpecificUserSettings() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { id, value } = e.target;
-    setUser(prevUser => prevUser ? {...prevUser, [id]: value} : null);
+    setUser((prevUser) => (prevUser ? { ...prevUser, [id]: value } : null));
   };
 
   const handleSave = async () => {
@@ -81,7 +87,7 @@ export default function SpecificUserSettings() {
       const updatedUser = await ApiCallPerfil(user);
       setUser(updatedUser);
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     } finally {
       setLoading(false);
     }
@@ -91,14 +97,22 @@ export default function SpecificUserSettings() {
     <div>
       <div className={styles.formLayout}>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="language">Idioma</label>
-          <select className={styles.select} id="language" defaultValue="spanish">
+          <label className={styles.label} htmlFor="language">
+            Idioma
+          </label>
+          <select
+            className={styles.select}
+            id="language"
+            defaultValue="spanish"
+          >
             <option value="spanish">Español</option>
             <option value="english">English</option>
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="timezone">Zona Horaria</label>
+          <label className={styles.label} htmlFor="timezone">
+            Zona Horaria
+          </label>
           <select className={styles.select} id="timezone" defaultValue="gmt-5">
             <option value="gmt-5">(GMT-5:00) Bogotá, Lima, Quito</option>
             <option value="gmt-4">(GMT-4:00) Caracas, La Paz</option>
@@ -115,23 +129,26 @@ export default function SpecificUserSettings() {
     return (
       <div className={styles.profileContainer}>
         <div className={styles.avatarContainer}>
-          <img 
-            src={user.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"} 
-            alt="Profile" 
-            className={styles.avatar} 
+          <img
+            src={
+              user.url_foto_de_perfil ||
+              "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"
+            }
+            alt="Profile"
+            className={styles.avatar}
           />
-          <button 
-            className={styles.editButton} 
-            onClick={handleEditClick} 
+          <button
+            className={styles.editButton}
+            onClick={handleEditClick}
             disabled={isUploading}
             type="button"
           >
             {isUploading ? <LoadingIcon /> : <PencilIcon />}
           </button>
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            style={{ display: 'none' }} 
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
             onChange={handleFileChange}
             accept="image/*"
           />
@@ -139,26 +156,60 @@ export default function SpecificUserSettings() {
         <div className={styles.formContainer}>
           <div className={styles.formLayout}>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="nombre_completo">Tu nombre</label>
-              <input className={styles.input} id="nombre_completo" value={user.nombre_completo} onChange={handleInputChange} />
+              <label className={styles.label} htmlFor="nombre_completo">
+                Tu nombre
+              </label>
+              <input
+                className={styles.input}
+                id="nombre_completo"
+                value={user.nombre_completo}
+                onChange={handleInputChange}
+              />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="identificacion">Número de identificación</label>
+              <label className={styles.label} htmlFor="identificacion">
+                Número de identificación
+              </label>
               <div className={styles.idContainer}>
-                <input className={styles.input} id="identificacion" value={user.identificacion} onChange={handleInputChange} />
-                <select className={styles.select} id="tipoIdentificacion" value={user.tipoIdentificacion} onChange={handleInputChange}>
+                <input
+                  className={styles.input}
+                  id="identificacion"
+                  value={user.identificacion}
+                  onChange={handleInputChange}
+                />
+                <select
+                  className={styles.select}
+                  id="tipoIdentificacion"
+                  value={user.tipoIdentificacion}
+                  onChange={handleInputChange}
+                >
                   <option value="CC">C.C.</option>
                   <option value="CE">C.E.</option>
                 </select>
               </div>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="correo_electronico">Email</label>
-              <input className={styles.input} id="correo_electronico" type="email" value={user.correo_electronico} onChange={handleInputChange} />
+              <label className={styles.label} htmlFor="correo_electronico">
+                Email
+              </label>
+              <input
+                className={styles.input}
+                id="correo_electronico"
+                type="email"
+                value={user.correo_electronico}
+                onChange={handleInputChange}
+              />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="ciudad">Ciudad</label>
-              <select className={styles.select} id="ciudad" value={user.ciudad} onChange={handleInputChange}>
+              <label className={styles.label} htmlFor="ciudad">
+                Ciudad
+              </label>
+              <select
+                className={styles.select}
+                id="ciudad"
+                value={user.ciudad}
+                onChange={handleInputChange}
+              >
                 <option value="Bogotá">Bogotá</option>
                 <option value="Medellín">Medellín</option>
                 <option value="Cali">Cali</option>
@@ -166,18 +217,29 @@ export default function SpecificUserSettings() {
               </select>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
-              <input 
-                className={styles.input} 
-                id="fecha_nacimiento" 
-                type="date" 
-                value={new Date(user.fecha_nacimiento).toISOString().split('T')[0]}
+              <label className={styles.label} htmlFor="fecha_nacimiento">
+                Fecha de nacimiento
+              </label>
+              <input
+                className={styles.input}
+                id="fecha_nacimiento"
+                type="date"
+                value={
+                  new Date(user.fecha_nacimiento).toISOString().split("T")[0]
+                }
                 onChange={handleInputChange}
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="pais">País</label>
-              <select className={styles.select} id="pais" value={user.pais} onChange={handleInputChange}>
+              <label className={styles.label} htmlFor="pais">
+                País
+              </label>
+              <select
+                className={styles.select}
+                id="pais"
+                value={user.pais}
+                onChange={handleInputChange}
+              >
                 <option value="Colombia">Colombia</option>
                 <option value="México">México</option>
                 <option value="Argentina">Argentina</option>
@@ -198,28 +260,44 @@ export default function SpecificUserSettings() {
       <div className={styles.container}>
         <div className={styles.tabList}>
           <div
-            className={`${styles.tab} ${activeTab === 'preferences' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('preferences')}
+            className={`${styles.tab} ${
+              activeTab === "preferences" ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab("preferences")}
           >
             <span className={styles.span}>Preferencias</span>
-            <div className={`${styles.decorator} ${activeTab === 'preferences' ? styles.decoratorActive : ''}`}></div>
+            <div
+              className={`${styles.decorator} ${
+                activeTab === "preferences" ? styles.decoratorActive : ""
+              }`}
+            ></div>
           </div>
           <div
-            className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('profile')}
+            className={`${styles.tab} ${
+              activeTab === "profile" ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab("profile")}
           >
             <span className={styles.span}>Mi Perfil</span>
-            <div className={`${styles.decorator} ${activeTab === 'profile' ? styles.decoratorActive : ''}`}></div>
+            <div
+              className={`${styles.decorator} ${
+                activeTab === "profile" ? styles.decoratorActive : ""
+              }`}
+            ></div>
           </div>
         </div>
         <div className={styles.content}>
-          {activeTab === 'preferences' ? renderPreferences() : renderProfile()}
+          {activeTab === "preferences" ? renderPreferences() : renderProfile()}
         </div>
-      </div>
-      <div className={styles.saveButtonContainer}>
-        <button className={styles.button} onClick={handleSave} disabled={loading}>
-          {loading ? 'Guardando...' : 'Guardar'}
-        </button>
+        <div className={styles.ButtonsContainer}>
+          <button
+            className={`${styles.button} dark-gradient-green `}
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? "Guardando..." : "Guardar"}
+          </button>
+        </div>
       </div>
     </div>
   );
