@@ -1,9 +1,10 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Topbar.module.css";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../Redux/store";
-const Topbar = ({ logoutFn }: { logoutFn: () => void }) => {
+const Topbar = () => {
   const userState = useSelector((store: AppStore) => store.user);
+  const navigate = useNavigate();
   return (
     <div className={styles.TopbarContainer}>
       <div className={styles.logoContainer} onClick={()=>{<Navigate to="/history"/>}}>
@@ -19,7 +20,7 @@ const Topbar = ({ logoutFn }: { logoutFn: () => void }) => {
         src={userState.url_foto_de_perfil || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3ecoYCIXbBsczNsN0icdz3oUUQEivp59Ugghl0AQBSJskziDV"}
         alt="Profile"
         onClick={() => {
-          logoutFn();
+          navigate(`/settings/profile`)
         }}
         className={styles.profilePicture}
       />
