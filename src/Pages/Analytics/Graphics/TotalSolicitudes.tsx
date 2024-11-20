@@ -122,7 +122,7 @@ export function TotalSolicitudes() {
         >
           <RadialBarChart
             data={chartDataPacientes}
-            endAngle={}
+            endAngle={100}
             innerRadius={100}
             outerRadius={150}
           >
