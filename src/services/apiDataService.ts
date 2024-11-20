@@ -85,3 +85,47 @@ export const ApiCallObtenerDiagnosticoPorId = async (id: string) => {
     throw err;
   }
 };
+
+// Exportar funcion que haga el llamado a la api con el endpoint /soporte para crear una solicitud de soporte
+export const ApiCallCrearSolicitudSoporte = async (solicitudSoporte: any) => {
+  try {
+    const result = await Eco4DApi.post("/soporte", solicitudSoporte, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al crear solicitud de soporte:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
+// Exportar funcion que haga el llamado a la api con el endpoint /soporte/mis-solicitudes para obtener toas las solicitud de soporte
+export const ApiCallObtenerMisSolicitudesSoporte = async () => {
+  try {
+    const result = await Eco4DApi.get("/soporte/mis-solicitudes", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener mis solicitudes de soporte:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
+
+export const ApiCallObtenerMensajes = async () => {
+  try {
+    const result = await Eco4DApi.get("/mensajes", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener mensajes:", err);
+    throw err; // Lanza el error para que pueda ser manejado en el componente
+  }
+};
