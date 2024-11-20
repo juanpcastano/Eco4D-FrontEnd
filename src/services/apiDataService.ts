@@ -12,7 +12,35 @@ export const ApiCallObtenerDiagnosticos = async () => {
     return result.data;
   } catch (err) {
     console.error("Error al obtener diagnósticos:", err);
-    throw err; // Lanza el error para que pueda ser manejado en el componente
+    throw err; 
+  }
+};
+
+export const ApiCallObtenerSolicitudesAbiertas = async () => {
+  try {
+    const result = await Eco4DApi.get("/soporte/solicitudes-abiertas", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener solicitudes abiertas:", err);
+    throw err; 
+  }
+};
+
+export const ApiCallObtenerSolicitudesCerradas = async () => {
+  try {
+    const result = await Eco4DApi.get("/soporte/solicitudes-cerradas", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.data;
+  } catch (err) {
+    console.error("Error al obtener solicitudes cerradas:", err);
+    throw err; 
   }
 };
 
@@ -26,7 +54,7 @@ export const ApiCallObtenerPacientes = async () => {
     return result.data;
   } catch (err) {
     console.error("Error al obtener pacientes:", err);
-    throw err; // Lanza el error para que pueda ser manejado en el componente
+    throw err; 
   }
 };
 
@@ -40,7 +68,7 @@ export const ApiCallObtenerMedicos = async () => {
     return result.data;
   } catch (err) {
     console.error("Error al obtener medicos:", err);
-    throw err; // Lanza el error para que pueda ser manejado en el componente
+    throw err; 
   }
 };
 
@@ -54,7 +82,7 @@ export const ApiCallObtenerAdministradores = async () => {
     return result.data;
   } catch (err) {
     console.error("Error al obtener medicos:", err);
-    throw err; // Lanza el error para que pueda ser manejado en el componente
+    throw err; 
   }
 };
 
