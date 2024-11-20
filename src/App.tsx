@@ -9,6 +9,7 @@ import { Suspense, lazy } from "react";
 import Loading from "./Components/Loading/Loading";
 import Register from "./Pages/Login/Register";
 import Users from "./Pages/Users/Users";
+import SpecificUser from "./Pages/Users/specificUser";
 
 const NotFound = lazy(() => import("./Pages/Not found/NotFound"));
 const Layout = lazy(() => import("./Pages/Layout/Layout"));
@@ -72,6 +73,10 @@ function App() {
                     <Route
                       path={PrivateRoutes.A.USERS.route}
                       element={<Users />}
+                    />
+                    <Route
+                      path="/perfil/:id"  // Cambiado para aceptar el parámetro ID
+                      element={<SpecificUser />}
                     />
                     <Route
                       path={PrivateRoutes.A.REQUEST.route}
