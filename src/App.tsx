@@ -75,7 +75,7 @@ function App() {
                       element={<Users />}
                     />
                     <Route
-                      path="/perfil/:id"  // Cambiado para aceptar el parámetro ID
+                      path="/user/:id"  // Cambiado para aceptar el parámetro ID
                       element={<SpecificUser />}
                     />
                     <Route
