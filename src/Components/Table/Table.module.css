@@ -2,7 +2,6 @@
   box-sizing: border-box;
   width: 100%;
   background-color: #fff;
-  padding: 30px;
   border-radius: 20px;
 }
 
@@ -29,10 +28,10 @@
 
 .detailsButton {
   padding: 5px 10px;
-  border: 1px solid #106849;
+  border: 1px solid #22c48b;
   border-radius: 15px;
   background: none;
-  color: #106849;
+  color: #22c48b;
   cursor: pointer;
   margin-right: 10px;
   margin-bottom: 5px;

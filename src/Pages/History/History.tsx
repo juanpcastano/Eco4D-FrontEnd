@@ -58,7 +58,6 @@ const History = () => {
         });
 
         setDiagnosticos(diagnosticosParseados);
-        console.log(diagnosticosParseados)
         setError(null);
       } catch (error) {
         const axiosError = error as AxiosError;
@@ -112,21 +111,32 @@ const History = () => {
     }
 
     // Ajustar headers y keys según el rol del usuario
-    const headers = userState.rol === "P"
-      ? ["Fecha", "Hora", "ID", "Doctor Encargado", "Semanas de Gestación",""]
-      : ["Fecha", "Hora", "ID", "Paciente", "Semanas de Gestación", ""];
+    const headers =
+      userState.rol === "P"
+        ? [
+            "Fecha",
+            "Hora",
+            "ID",
+            "Doctor Encargado",
+            "Semanas de Gestación",
+            "",
+          ]
+        : ["Fecha", "Hora", "ID", "Paciente", "Semanas de Gestación", ""];
 
-    const keys = userState.rol === "P"
-      ? ["fecha", "hora", "id",  "doctorEncargado", "edadGestacional"]
-      : ["fecha", "hora", "id", "paciente", "edadGestacional"];
+    const keys =
+      userState.rol === "P"
+        ? ["fecha", "hora", "id", "doctorEncargado", "edadGestacional"]
+        : ["fecha", "hora", "id", "paciente", "edadGestacional"];
 
     return (
-      <Table
-        headers={headers}
-        keys={keys}
-        data={diagnosticos}
-        pathLink={PrivateRoutes.ECOGRAPHY.route}
-      />
+      <div className={styles.mainContainer}>
+        <Table
+          headers={headers}
+          keys={keys}
+          data={diagnosticos}
+          pathLink={PrivateRoutes.ECOGRAPHY.route}
+        />
+      </div>
     );
   };
 
