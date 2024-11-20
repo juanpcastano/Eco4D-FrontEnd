@@ -58,7 +58,6 @@ const History = () => {
         });
 
         setDiagnosticos(diagnosticosParseados);
-        console.log(diagnosticosParseados)
         setError(null);
       } catch (error) {
         const axiosError = error as AxiosError;
