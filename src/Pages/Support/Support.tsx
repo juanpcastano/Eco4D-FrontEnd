@@ -253,11 +253,11 @@ export default function Support() {
                 >
                   <option value="fallas tecnicas">Fallas técnicas</option>
                   <option value="consulta general">Consulta general</option>
-                  <option value="consulta general">
+                  <option value="inconsistencia de datos">
                     Inconsistencia de datos
                   </option>
-                  <option value="consulta general">Configuraciones</option>
-                  <option value="otro">Otro</option>
+                  <option value="configuraciones">Configuraciones</option>
+                  <option value="otros">Otros</option>
                 </select>
               </div>
             </div>
