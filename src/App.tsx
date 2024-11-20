@@ -46,6 +46,7 @@ function App() {
                     element={<Ecography />}
                   />
                   <Route path={PrivateRoutes.SETTINGS.route} element={<Settings />} />
+                  <Route path={PrivateRoutes.SETTINGS.route+"/profile"} element={<Settings tab="profile" />} />
                   <Route element={<RoleGuard role={["P","M"]} />}>
                     <Route
                       path={PrivateRoutes.PM.SUPPORT.route}
