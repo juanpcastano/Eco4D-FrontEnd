@@ -70,7 +70,7 @@ export default function SolicitudRequest() {
           </h1>
           {solicitud.solicitante && (
             <p className="text-lg text-gray-600 mb-4">
-              Solicitante: {solicitud.solicitante.nombre_completo}
+              {solicitud.solicitante.nombre_completo}
             </p>
           )}
           <p className="text-base text-gray-700">{solicitud.descripcion}</p>
