@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { DatePickerWithRange } from "@/Components/ui/daterangepicker";
-import { BarChartSolicitudes } from "@/Pages/Analytics/Graphics/BarChart";
+import { BarChartSolicitudes } from "@/Pages/Analytics/Graphics/TipoSolicitudes";
 import { AreaChartt } from "@/Pages/Analytics/Graphics/usoApp";
 import { Linearchart } from "./Graphics/linearchart";
 import { TotalSolicitudes } from "./Graphics/TotalSolicitudes";
+
+
+import { Card } from "@/Components/ui/card";
 const Analytics = () => {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
 
@@ -71,7 +74,7 @@ const Analytics = () => {
         {/* Gráfico: Calificación promedio del servicio */}
         <div className="bg-white p-4 rounded-lg shadow-md">
           <p className="text-xl font-medium">Calificación promedio del servicio</p>
-          <Linearchart />
+          <Card>4.5</Card>
         </div>
 
        
