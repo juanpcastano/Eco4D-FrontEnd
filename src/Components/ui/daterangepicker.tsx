@@ -16,11 +16,22 @@ import {
 
 export function DatePickerWithRange({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  })
+  dateRange,
+  setDateRange,
+}: React.HTMLAttributes<HTMLDivElement> & {
+  dateRange: [Date | null, Date | null];
+  setDateRange: (range: [Date | null, Date | null]) => void;
+}) {
+  const [localDate, setLocalDate] = React.useState<DateRange | undefined>({
+    from: dateRange[0] || undefined,
+    to: dateRange[1] || undefined,
+  });
+
+  React.useEffect(() => {
+    if (localDate?.from && localDate?.to) {
+      setDateRange([localDate.from, localDate.to]);
+    }
+  }, [localDate, setDateRange]);
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -31,18 +42,18 @@ export function DatePickerWithRange({
             variant={"outline"}
             className={cn(
               "w-[300px] justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              !localDate && "text-muted-foreground"
             )}
           >
             <CalendarIcon />
-            {date?.from ? (
-              date.to ? (
+            {localDate?.from ? (
+              localDate.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
+                  {format(localDate.from, "LLL dd, y")} -{" "}
+                  {format(localDate.to, "LLL dd, y")}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                format(localDate.from, "LLL dd, y")
               )
             ) : (
               <span>Pick a date</span>
@@ -53,13 +64,13 @@ export function DatePickerWithRange({
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
+            defaultMonth={localDate?.from}
+            selected={localDate}
+            onSelect={setLocalDate}
             numberOfMonths={2}
           />
         </PopoverContent>
       </Popover>
     </div>
-  )
+  );
 }
