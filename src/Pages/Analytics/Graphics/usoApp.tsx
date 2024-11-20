@@ -20,17 +20,17 @@ import {
   ChartTooltipContent,
 } from "@/Components/ui/chart"
 const chartData = [
-    { month: "Enero", desktop: 186, mobile: 80 },
-    { month: "Febrero", desktop: 305, mobile: 200 },
-    { month: "Marzo", desktop: 237, mobile: 120 },
-    { month: "Abril", desktop: 73, mobile: 190 },
-    { month: "Mayo", desktop: 209, mobile: 130 },
-    { month: "Junio", desktop: 214, mobile: 140 },
-    { month: "Julio", desktop: 214, mobile: 140 },
-    { month: "Agosto", desktop: 214, mobile: 140 },
-    { month: "Octubre", desktop: 214, mobile: 140 },
-    { month: "Noviembre", desktop: 214, mobile: 140 },
-    { month: "Diciembre", desktop: 214, mobile: 140 },
+    { month: "Enero", desktop: 1, mobile: 3 },
+    { month: "Febrero", desktop: 2, mobile: 6 },
+    { month: "Marzo", desktop: 3, mobile: 20 },
+    { month: "Abril", desktop: 5, mobile: 30 },
+    { month: "Mayo", desktop: 2, mobile: 50 },
+    { month: "Junio", desktop: 1, mobile: 6 },
+    { month: "Julio", desktop: 5, mobile: 5 },
+    { month: "Agosto", desktop: 1, mobile: 30 },
+    { month: "Octubre", desktop: 20, mobile: 30 },
+    { month: "Noviembre", desktop: 40, mobile: 20 },
+    { month: "Diciembre", desktop: 20, mobile: 10 },
   ]
 
 const chartConfig = {
