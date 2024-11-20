@@ -1,11 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../Redux/store";
-import { ApiCallObtenerMedicos } from "@/services/apiDataService"
+
 import { ApiCallObtenerMisSolicitudesSoporte } from "@/services/apiDataService"
-import { ApiCallObtenerPacientes } from "@/services/apiDataService"
+
 
 import { TrendingUp } from "lucide-react"
 import {
@@ -44,7 +41,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-interface DataSolicitudes {
+interface Solicitudes {
   id:number
   FechaReporte:Date,
   FechaSolucion:Date
@@ -53,17 +50,11 @@ interface DataSolicitudes {
   Descripcion:string
 
   pacientes: {
-    cedula:number, 
-    nombre_completo: string;
-    correo_electronico: string;
-    edad?: number;
+    
     rol:string
   };
   medicos: {
-    cedula:number, 
-    nombre_completo: string;
-    correo_electronico: string;
-    edad?: number;
+    
     rol:string
   };
   
@@ -72,22 +63,25 @@ export function TotalSolicitudes() {
   
  
   
-  const [DataSolicitudes, setDataSolicitudes]=useState<DataSolicitudes|null>(null);
+  const [DataSolicitudes, setDataSolicitudes]=useState<Solicitudes|null>(null);
 
   const [loading, setLoading] = useState(true);
   
   const [errorSolicitudes, setErrorSolicitudes] = useState<string | null>(null);
   
-  const [paciente,setcontPac]=useState(0)
-  const [medicos,setcontMed]=useState(0)
+  
 
 
   useEffect(()=>{
-    const fetchSolititud =async ()=>{
+    const cargarSolititudes =async ()=>{
       try {
         setLoading(true);
-        const data =await ApiCallObtenerMisSolicitudesSoporte();
-        setDataSolicitudes(data)
+        const data:Solicitudes[]=await ApiCallObtenerMisSolicitudesSoporte();
+        
+
+        const pacientes=data.filter((solicitud)=>solicitud.pacientes.rol==="P").length
+
+        const medicos=data.filter((solicitud)=>solicitud.medicos.rol==="M").length
        
         
 
@@ -128,9 +122,9 @@ export function TotalSolicitudes() {
         >
           <RadialBarChart
             data={chartDataPacientes}
-            endAngle={100}
-            innerRadius={80}
-            outerRadius={140}
+            endAngle={}
+            innerRadius={100}
+            outerRadius={150}
           >
             <PolarGrid
               gridType="circle"

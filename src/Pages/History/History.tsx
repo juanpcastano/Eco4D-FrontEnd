@@ -51,7 +51,7 @@ const History = () => {
             hora: fechaCompleta.toLocaleTimeString("es-ES", {
               hour: "2-digit",
               minute: "2-digit",
-            }),
+            }), 
             doctorEncargado: diagnostico.medico?.nombre_completo || "N/A",
             paciente: diagnostico.paciente?.nombre_completo || "N/A",
           };

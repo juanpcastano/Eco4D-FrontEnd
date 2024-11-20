@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DatePickerWithRange } from "@/Components/ui/daterangepicker";
 import { BarChartSolicitudes } from "@/Pages/Analytics/Graphics/BarChart";
-import { AreaChartt } from "@/Pages/Analytics/Graphics/areachart";
+import { AreaChartt } from "@/Pages/Analytics/Graphics/usoApp";
 import { Linearchart } from "./Graphics/linearchart";
 import { TotalSolicitudes } from "./Graphics/TotalSolicitudes";
 const Analytics = () => {
