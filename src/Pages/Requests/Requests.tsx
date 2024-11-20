@@ -94,7 +94,7 @@ const Requests = () => {
     return (
       <div className={styles.loadingContainer}>
         <div className={styles.loadingSpinner} />
-        <p className={styles.loadingText}>Cargando usuarios...</p>
+        <p className={styles.loadingText}>Cargando solicitudes...</p>
       </div>
     );
   }
